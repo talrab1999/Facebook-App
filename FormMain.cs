@@ -52,8 +52,9 @@ namespace BasicFacebookFeatures
                 "user_photos",
                 "user_posts",
                 "user_videos",
-            "publish_to_groups",
-            "pages_read_engagement"
+                "publish_to_groups",
+                "pages_read_engagement",
+                "pages_manage_posts"
                 );
           
 
@@ -84,6 +85,11 @@ namespace BasicFacebookFeatures
             buttonLogin.Text = $"Logged in as {m_TheLoggedInUser.Name}";
             buttonLogin.BackColor = Color.LightGreen;
             pictureBoxProfile.ImageLocation = m_TheLoggedInUser.PictureNormalURL;
+            loadUI();
+        }
+
+        private void loadUI()
+        {
             fetchPosts();
             fetchAlbums();
             fetchFavoriteTeams();
@@ -133,16 +139,24 @@ namespace BasicFacebookFeatures
 
         private void buttonPost_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(buttonPost.Text))
+            if (m_TheLoggedInUser != null)
             {
-                Status postedStatus = m_TheLoggedInUser.PostStatus(textBoxNewPost.Text);
-                MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
+                try
+                {
+                    Status postedStatus = m_TheLoggedInUser.PostStatus(textBoxNewPost.Text);
+                    MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error occurred!\nError details:\n" + ex.ToString());
+                }
             }
-            else 
+            else
             {
-                MessageBox.Show("Can't post empty status, Please try again.");
+                MessageBox.Show("You need to be logged in to post!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+    
 
         private void listBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
         {
