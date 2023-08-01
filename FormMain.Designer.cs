@@ -30,15 +30,22 @@
         {
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonLogout = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.labelMyAlbums = new System.Windows.Forms.Label();
+            this.listBoxAlbums = new System.Windows.Forms.ListBox();
+            this.buttonPost = new System.Windows.Forms.Button();
+            this.textBoxNewPost = new System.Windows.Forms.TextBox();
+            this.labelPost = new System.Windows.Forms.Label();
+            this.labelMyPosts = new System.Windows.Forms.Label();
+            this.listBoxPosts = new System.Windows.Forms.ListBox();
             this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
-            this.textBoxAppID = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.pictureBoxAlbum = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlbum)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonLogin
@@ -64,17 +71,6 @@
             this.buttonLogout.UseVisualStyleBackColor = true;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(314, 17);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(559, 36);
-            this.label1.TabIndex = 53;
-            this.label1.Text = "This is the AppID of \"Design Patterns App 2.4\". The grader will use it to test yo" +
-    "ur app.\r\nType here your own AppID to test it:";
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -88,9 +84,15 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.pictureBoxAlbum);
+            this.tabPage1.Controls.Add(this.labelMyAlbums);
+            this.tabPage1.Controls.Add(this.listBoxAlbums);
+            this.tabPage1.Controls.Add(this.buttonPost);
+            this.tabPage1.Controls.Add(this.textBoxNewPost);
+            this.tabPage1.Controls.Add(this.labelPost);
+            this.tabPage1.Controls.Add(this.labelMyPosts);
+            this.tabPage1.Controls.Add(this.listBoxPosts);
             this.tabPage1.Controls.Add(this.pictureBoxProfile);
-            this.tabPage1.Controls.Add(this.textBoxAppID);
-            this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.buttonLogout);
             this.tabPage1.Controls.Add(this.buttonLogin);
             this.tabPage1.Location = new System.Drawing.Point(4, 27);
@@ -101,6 +103,69 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // labelMyAlbums
+            // 
+            this.labelMyAlbums.AutoSize = true;
+            this.labelMyAlbums.Location = new System.Drawing.Point(321, 279);
+            this.labelMyAlbums.Name = "labelMyAlbums";
+            this.labelMyAlbums.Size = new System.Drawing.Size(81, 18);
+            this.labelMyAlbums.TabIndex = 63;
+            this.labelMyAlbums.Text = "My Albums";
+            // 
+            // listBoxAlbums
+            // 
+            this.listBoxAlbums.FormattingEnabled = true;
+            this.listBoxAlbums.ItemHeight = 18;
+            this.listBoxAlbums.Location = new System.Drawing.Point(324, 302);
+            this.listBoxAlbums.Name = "listBoxAlbums";
+            this.listBoxAlbums.Size = new System.Drawing.Size(160, 310);
+            this.listBoxAlbums.TabIndex = 62;
+            this.listBoxAlbums.SelectedIndexChanged += new System.EventHandler(this.listBoxAlbums_SelectedIndexChanged);
+            // 
+            // buttonPost
+            // 
+            this.buttonPost.Location = new System.Drawing.Point(211, 238);
+            this.buttonPost.Name = "buttonPost";
+            this.buttonPost.Size = new System.Drawing.Size(75, 23);
+            this.buttonPost.TabIndex = 60;
+            this.buttonPost.Text = "Post";
+            this.buttonPost.UseVisualStyleBackColor = true;
+            this.buttonPost.Click += new System.EventHandler(this.buttonPost_Click);
+            // 
+            // textBoxNewPost
+            // 
+            this.textBoxNewPost.Location = new System.Drawing.Point(18, 208);
+            this.textBoxNewPost.Name = "textBoxNewPost";
+            this.textBoxNewPost.Size = new System.Drawing.Size(268, 24);
+            this.textBoxNewPost.TabIndex = 59;
+            // 
+            // labelPost
+            // 
+            this.labelPost.AutoSize = true;
+            this.labelPost.Location = new System.Drawing.Point(15, 187);
+            this.labelPost.Name = "labelPost";
+            this.labelPost.Size = new System.Drawing.Size(128, 18);
+            this.labelPost.TabIndex = 58;
+            this.labelPost.Text = "Post a new Status";
+            // 
+            // labelMyPosts
+            // 
+            this.labelMyPosts.AutoSize = true;
+            this.labelMyPosts.Location = new System.Drawing.Point(15, 279);
+            this.labelMyPosts.Name = "labelMyPosts";
+            this.labelMyPosts.Size = new System.Drawing.Size(96, 18);
+            this.labelMyPosts.TabIndex = 56;
+            this.labelMyPosts.Text = "My last posts";
+            // 
+            // listBoxPosts
+            // 
+            this.listBoxPosts.FormattingEnabled = true;
+            this.listBoxPosts.ItemHeight = 18;
+            this.listBoxPosts.Location = new System.Drawing.Point(18, 302);
+            this.listBoxPosts.Name = "listBoxPosts";
+            this.listBoxPosts.Size = new System.Drawing.Size(268, 310);
+            this.listBoxPosts.TabIndex = 57;
+            // 
             // pictureBoxProfile
             // 
             this.pictureBoxProfile.Location = new System.Drawing.Point(18, 96);
@@ -109,14 +174,6 @@
             this.pictureBoxProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxProfile.TabIndex = 55;
             this.pictureBoxProfile.TabStop = false;
-            // 
-            // textBoxAppID
-            // 
-            this.textBoxAppID.Location = new System.Drawing.Point(317, 61);
-            this.textBoxAppID.Name = "textBoxAppID";
-            this.textBoxAppID.Size = new System.Drawing.Size(237, 24);
-            this.textBoxAppID.TabIndex = 54;
-            this.textBoxAppID.Text = "610365831081527";
             // 
             // tabPage2
             // 
@@ -127,6 +184,14 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // pictureBoxAlbum
+            // 
+            this.pictureBoxAlbum.Location = new System.Drawing.Point(490, 302);
+            this.pictureBoxAlbum.Name = "pictureBoxAlbum";
+            this.pictureBoxAlbum.Size = new System.Drawing.Size(113, 61);
+            this.pictureBoxAlbum.TabIndex = 64;
+            this.pictureBoxAlbum.TabStop = false;
             // 
             // FormMain
             // 
@@ -143,6 +208,7 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlbum)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -151,12 +217,18 @@
 
 		private System.Windows.Forms.Button buttonLogin;
 		private System.Windows.Forms.Button buttonLogout;
-		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TabControl tabControl1;
 		private System.Windows.Forms.TabPage tabPage1;
 		private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TextBox textBoxAppID;
         private System.Windows.Forms.PictureBox pictureBoxProfile;
+        private System.Windows.Forms.Label labelMyPosts;
+        private System.Windows.Forms.ListBox listBoxPosts;
+        private System.Windows.Forms.Label labelPost;
+        private System.Windows.Forms.TextBox textBoxNewPost;
+        private System.Windows.Forms.Button buttonPost;
+        private System.Windows.Forms.Label labelMyAlbums;
+        private System.Windows.Forms.ListBox listBoxAlbums;
+        private System.Windows.Forms.PictureBox pictureBoxAlbum;
     }
 }
 
