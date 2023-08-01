@@ -35,7 +35,7 @@ namespace BasicFacebookFeatures
 
         private void login()
         {
-            /*
+            
             m_LoginResult = FacebookService.Login(
                 "610365831081527",
                 "email",
@@ -51,11 +51,14 @@ namespace BasicFacebookFeatures
                 "user_location",
                 "user_photos",
                 "user_posts",
-                "user_videos"
+                "user_videos",
+            "publish_to_groups",
+            "pages_read_engagement"
                 );
-            */
+          
 
-           m_LoginResult = FacebookService.Connect("EAAIrH96LbjcBO5jlui1oqxZAZAk9G95EZBXByOTpyZAmotlpQWb4AZAVIfLPOnW2P0OqQ6sad75qEGWJ9g8KEJjsmfJNnd5raQxODB9zZCbzlBJjAZBDX3w9ZC0nog6jKeMLHEJW0fSabvkbCbBi8kBFlAqLKK3LU9tYHoZAnOv9midYLb4grLChe01HGjKxVT1U0vEoZA3iM6kO0ZD");
+
+         //   m_LoginResult = FacebookService.Connect("EAAIrH96LbjcBO8pgTpokr7qVKJehjlDMjhMFpYUujO1gf496YeA9DZADRLrFmxidrixK3Tf6tqAOpV7N2rSUu66T2lhoOeVkUxyRzoOykZB4QjbsUZCfs5U8mufpeooG7wkLOOfs3NCeVtH8iqr2PzpeXIRxkXURC89A682HgdMZB8G9ASfbiGTGb1hsMmKZAICCUoh9lMuMZD");
 
             if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
             { 
@@ -76,7 +79,6 @@ namespace BasicFacebookFeatures
             buttonLogout.Enabled = false;
         }
 
-
         private void fetchUserInfo()
         {
             buttonLogin.Text = $"Logged in as {m_TheLoggedInUser.Name}";
@@ -84,6 +86,8 @@ namespace BasicFacebookFeatures
             pictureBoxProfile.ImageLocation = m_TheLoggedInUser.PictureNormalURL;
             fetchPosts();
             fetchAlbums();
+            fetchFavoriteTeams();
+            fetchLikePages();
         }
 
         private void fetchPosts()
@@ -158,6 +162,49 @@ namespace BasicFacebookFeatures
                 {
                     pictureBoxProfile.Image = pictureBoxProfile.ErrorImage;
                 }
+            }
+        }
+
+        private void fetchFavoriteTeams()
+        {
+            listBoxFavoriteTeams.Items.Clear();
+            listBoxFavoriteTeams.DisplayMember = "Name";
+
+            foreach (Page team in m_TheLoggedInUser.FavofriteTeams)
+            {
+                listBoxFavoriteTeams.Items.Add(team);
+            }
+
+            if (listBoxFavoriteTeams.Items.Count == 0)
+            {
+                listBoxFavoriteTeams.Items.Add("No teams to retrieve :(");
+            }
+        }
+
+        private void listBoxFavoriteTeams_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxFavoriteTeams.SelectedItems.Count == 1)
+            {
+                Page selectedTeam = listBoxFavoriteTeams.SelectedItem as Page;
+                pictureBoxFavoriteBox.LoadAsync(selectedTeam.PictureNormalURL);
+            }
+        }
+
+        private void fetchLikePages() 
+        {
+            listBoxLikePages.Items.Clear();
+
+            listBoxLikePages.DisplayMember = "Name";
+
+            foreach (Page page in m_TheLoggedInUser.LikedPages)
+            {
+                listBoxLikePages.Items.Add(page);
+            }
+           
+
+            if (listBoxLikePages.Items.Count == 0)
+            {
+                listBoxLikePages.Items.Add("No liked pages to retrieve");
             }
         }
     }
