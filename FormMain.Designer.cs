@@ -32,6 +32,12 @@
             this.buttonLogout = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.labelSpecialFeatures = new System.Windows.Forms.Label();
+            this.pictureBoxFavoriteTeam = new System.Windows.Forms.PictureBox();
+            this.listBoxFavoriteTeams = new System.Windows.Forms.ListBox();
+            this.labelFavoriteTeams = new System.Windows.Forms.Label();
+            this.labelLikePages = new System.Windows.Forms.Label();
+            this.listBoxLikePages = new System.Windows.Forms.ListBox();
             this.pictureBoxAlbum = new System.Windows.Forms.PictureBox();
             this.labelMyAlbums = new System.Windows.Forms.Label();
             this.listBoxAlbums = new System.Windows.Forms.ListBox();
@@ -42,17 +48,11 @@
             this.listBoxPosts = new System.Windows.Forms.ListBox();
             this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.listBoxLikePages = new System.Windows.Forms.ListBox();
-            this.labelLikePages = new System.Windows.Forms.Label();
-            this.labelFavoriteTeams = new System.Windows.Forms.Label();
-            this.listBoxFavoriteTeams = new System.Windows.Forms.ListBox();
-            this.pictureBoxFavoriteBox = new System.Windows.Forms.PictureBox();
-            this.labelSpecialFeatures = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFavoriteTeam)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlbum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFavoriteBox)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonLogin
@@ -92,7 +92,7 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.labelSpecialFeatures);
-            this.tabPage1.Controls.Add(this.pictureBoxFavoriteBox);
+            this.tabPage1.Controls.Add(this.pictureBoxFavoriteTeam);
             this.tabPage1.Controls.Add(this.listBoxFavoriteTeams);
             this.tabPage1.Controls.Add(this.labelFavoriteTeams);
             this.tabPage1.Controls.Add(this.labelLikePages);
@@ -116,6 +116,64 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // labelSpecialFeatures
+            // 
+            this.labelSpecialFeatures.AutoSize = true;
+            this.labelSpecialFeatures.Location = new System.Drawing.Point(321, 17);
+            this.labelSpecialFeatures.Name = "labelSpecialFeatures";
+            this.labelSpecialFeatures.Size = new System.Drawing.Size(118, 18);
+            this.labelSpecialFeatures.TabIndex = 70;
+            this.labelSpecialFeatures.Text = "Special Features";
+            // 
+            // pictureBoxFavoriteTeam
+            // 
+            this.pictureBoxFavoriteTeam.Location = new System.Drawing.Point(1032, 302);
+            this.pictureBoxFavoriteTeam.Name = "pictureBoxFavoriteTeam";
+            this.pictureBoxFavoriteTeam.Size = new System.Drawing.Size(100, 50);
+            this.pictureBoxFavoriteTeam.TabIndex = 69;
+            this.pictureBoxFavoriteTeam.TabStop = false;
+            // 
+            // listBoxFavoriteTeams
+            // 
+            this.listBoxFavoriteTeams.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.listBoxFavoriteTeams.FormattingEnabled = true;
+            this.listBoxFavoriteTeams.ItemHeight = 18;
+            this.listBoxFavoriteTeams.Location = new System.Drawing.Point(841, 302);
+            this.listBoxFavoriteTeams.Name = "listBoxFavoriteTeams";
+            this.listBoxFavoriteTeams.Size = new System.Drawing.Size(184, 310);
+            this.listBoxFavoriteTeams.TabIndex = 68;
+            // 
+            // labelFavoriteTeams
+            // 
+            this.labelFavoriteTeams.AutoSize = true;
+            this.labelFavoriteTeams.Location = new System.Drawing.Point(838, 281);
+            this.labelFavoriteTeams.Name = "labelFavoriteTeams";
+            this.labelFavoriteTeams.Size = new System.Drawing.Size(111, 18);
+            this.labelFavoriteTeams.TabIndex = 67;
+            this.labelFavoriteTeams.Text = "Favorite Teams";
+            // 
+            // labelLikePages
+            // 
+            this.labelLikePages.AutoSize = true;
+            this.labelLikePages.Location = new System.Drawing.Point(628, 281);
+            this.labelLikePages.Name = "labelLikePages";
+            this.labelLikePages.Size = new System.Drawing.Size(105, 18);
+            this.labelLikePages.TabIndex = 66;
+            this.labelLikePages.Text = "My Like Pages";
+            this.labelLikePages.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // listBoxLikePages
+            // 
+            this.listBoxLikePages.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.listBoxLikePages.FormattingEnabled = true;
+            this.listBoxLikePages.ItemHeight = 18;
+            this.listBoxLikePages.Location = new System.Drawing.Point(631, 302);
+            this.listBoxLikePages.Name = "listBoxLikePages";
+            this.listBoxLikePages.Size = new System.Drawing.Size(160, 310);
+            this.listBoxLikePages.TabIndex = 65;
+            // 
             // pictureBoxAlbum
             // 
             this.pictureBoxAlbum.Location = new System.Drawing.Point(490, 302);
@@ -135,6 +193,8 @@
             // 
             // listBoxAlbums
             // 
+            this.listBoxAlbums.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.listBoxAlbums.FormattingEnabled = true;
             this.listBoxAlbums.ItemHeight = 18;
             this.listBoxAlbums.Location = new System.Drawing.Point(324, 302);
@@ -155,6 +215,8 @@
             // 
             // textBoxNewPost
             // 
+            this.textBoxNewPost.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.textBoxNewPost.Location = new System.Drawing.Point(18, 208);
             this.textBoxNewPost.Name = "textBoxNewPost";
             this.textBoxNewPost.Size = new System.Drawing.Size(268, 24);
@@ -162,6 +224,8 @@
             // 
             // labelPost
             // 
+            this.labelPost.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.labelPost.AutoSize = true;
             this.labelPost.Location = new System.Drawing.Point(15, 187);
             this.labelPost.Name = "labelPost";
@@ -171,6 +235,8 @@
             // 
             // labelMyPosts
             // 
+            this.labelMyPosts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.labelMyPosts.AutoSize = true;
             this.labelMyPosts.Location = new System.Drawing.Point(15, 279);
             this.labelMyPosts.Name = "labelMyPosts";
@@ -180,6 +246,8 @@
             // 
             // listBoxPosts
             // 
+            this.listBoxPosts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.listBoxPosts.FormattingEnabled = true;
             this.listBoxPosts.ItemHeight = 18;
             this.listBoxPosts.Location = new System.Drawing.Point(18, 302);
@@ -201,64 +269,10 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1235, 666);
+            this.tabPage2.Size = new System.Drawing.Size(1147, 618);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // listBoxLikePages
-            // 
-            this.listBoxLikePages.FormattingEnabled = true;
-            this.listBoxLikePages.ItemHeight = 18;
-            this.listBoxLikePages.Location = new System.Drawing.Point(631, 302);
-            this.listBoxLikePages.Name = "listBoxLikePages";
-            this.listBoxLikePages.Size = new System.Drawing.Size(160, 310);
-            this.listBoxLikePages.TabIndex = 65;
-            // 
-            // labelLikePages
-            // 
-            this.labelLikePages.AutoSize = true;
-            this.labelLikePages.Location = new System.Drawing.Point(628, 281);
-            this.labelLikePages.Name = "labelLikePages";
-            this.labelLikePages.Size = new System.Drawing.Size(105, 18);
-            this.labelLikePages.TabIndex = 66;
-            this.labelLikePages.Text = "My Like Pages";
-            this.labelLikePages.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // labelFavoriteTeams
-            // 
-            this.labelFavoriteTeams.AutoSize = true;
-            this.labelFavoriteTeams.Location = new System.Drawing.Point(838, 281);
-            this.labelFavoriteTeams.Name = "labelFavoriteTeams";
-            this.labelFavoriteTeams.Size = new System.Drawing.Size(111, 18);
-            this.labelFavoriteTeams.TabIndex = 67;
-            this.labelFavoriteTeams.Text = "Favorite Teams";
-            // 
-            // listBoxFavoriteTeams
-            // 
-            this.listBoxFavoriteTeams.FormattingEnabled = true;
-            this.listBoxFavoriteTeams.ItemHeight = 18;
-            this.listBoxFavoriteTeams.Location = new System.Drawing.Point(841, 302);
-            this.listBoxFavoriteTeams.Name = "listBoxFavoriteTeams";
-            this.listBoxFavoriteTeams.Size = new System.Drawing.Size(184, 310);
-            this.listBoxFavoriteTeams.TabIndex = 68;
-            // 
-            // pictureBoxFavoriteBox
-            // 
-            this.pictureBoxFavoriteBox.Location = new System.Drawing.Point(1032, 302);
-            this.pictureBoxFavoriteBox.Name = "pictureBoxFavoriteBox";
-            this.pictureBoxFavoriteBox.Size = new System.Drawing.Size(100, 50);
-            this.pictureBoxFavoriteBox.TabIndex = 69;
-            this.pictureBoxFavoriteBox.TabStop = false;
-            // 
-            // labelSpecialFeatures
-            // 
-            this.labelSpecialFeatures.AutoSize = true;
-            this.labelSpecialFeatures.Location = new System.Drawing.Point(321, 17);
-            this.labelSpecialFeatures.Name = "labelSpecialFeatures";
-            this.labelSpecialFeatures.Size = new System.Drawing.Size(118, 18);
-            this.labelSpecialFeatures.TabIndex = 70;
-            this.labelSpecialFeatures.Text = "Special Features";
             // 
             // FormMain
             // 
@@ -274,9 +288,9 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFavoriteTeam)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlbum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFavoriteBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -297,7 +311,7 @@
         private System.Windows.Forms.Label labelMyAlbums;
         private System.Windows.Forms.ListBox listBoxAlbums;
         private System.Windows.Forms.PictureBox pictureBoxAlbum;
-        private System.Windows.Forms.PictureBox pictureBoxFavoriteBox;
+        private System.Windows.Forms.PictureBox pictureBoxFavoriteTeam;
         private System.Windows.Forms.ListBox listBoxFavoriteTeams;
         private System.Windows.Forms.Label labelFavoriteTeams;
         private System.Windows.Forms.Label labelLikePages;

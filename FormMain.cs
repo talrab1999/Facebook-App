@@ -35,7 +35,7 @@ namespace BasicFacebookFeatures
 
         private void login()
         {
-            
+          /*
             m_LoginResult = FacebookService.Login(
                 "610365831081527",
                 "email",
@@ -56,10 +56,11 @@ namespace BasicFacebookFeatures
                 "pages_read_engagement",
                 "pages_manage_posts"
                 );
+          */
           
 
 
-         //   m_LoginResult = FacebookService.Connect("EAAIrH96LbjcBO8pgTpokr7qVKJehjlDMjhMFpYUujO1gf496YeA9DZADRLrFmxidrixK3Tf6tqAOpV7N2rSUu66T2lhoOeVkUxyRzoOykZB4QjbsUZCfs5U8mufpeooG7wkLOOfs3NCeVtH8iqr2PzpeXIRxkXURC89A682HgdMZB8G9ASfbiGTGb1hsMmKZAICCUoh9lMuMZD");
+           m_LoginResult = FacebookService.Connect("EAAIrH96LbjcBO0iwwqb8jHIEGPavdqE4HT69ed6IZCn2nZBWeOfNTDjDjk2FBpIpybdtXjZBHwObGlil2CKCdvaZAGf2hsrKQPSXGBPGb8xEG46Bvc4i8YbiP3y5TWAXoGtWQoZAxUa8TIOYuHXIlIPk6sHlW08tljqp8VtNhVvJbOo3KHzCWjxvZACiwe");
 
             if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
             { 
@@ -99,21 +100,27 @@ namespace BasicFacebookFeatures
         private void fetchPosts()
         {
             listBoxPosts.Items.Clear();
-
-            foreach (Post post in m_TheLoggedInUser.Posts)
+            try
             {
-                if (post.Message != null)
+                foreach (Post post in m_TheLoggedInUser.Posts)
                 {
-                    listBoxPosts.Items.Add(post.Message);
+                    if (post.Message != null)
+                    {
+                        listBoxPosts.Items.Add(post.Message);
+                    }
+                    else if (post.Caption != null)
+                    {
+                        listBoxPosts.Items.Add(post.Caption);
+                    }
+                    else
+                    {
+                        listBoxPosts.Items.Add(string.Format("[{0}]", post.Type));
+                    }
                 }
-                else if (post.Caption != null)
-                {
-                    listBoxPosts.Items.Add(post.Caption);
-                }
-                else
-                {
-                    listBoxPosts.Items.Add(string.Format("[{0}]", post.Type));
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred!\nError details:\n" + ex.ToString());
             }
 
             if (listBoxPosts.Items.Count == 0)
@@ -126,9 +133,16 @@ namespace BasicFacebookFeatures
         {
             listBoxAlbums.Items.Clear();
 
-            foreach(Album album in m_TheLoggedInUser.Albums)
+            try
             {
-                listBoxAlbums.Items.Add(album);
+                foreach (Album album in m_TheLoggedInUser.Albums)
+                {
+                    listBoxAlbums.Items.Add(album);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred!\nError details:\n" + ex.ToString());
             }
 
             if (listBoxAlbums.Items.Count == 0)
@@ -157,7 +171,6 @@ namespace BasicFacebookFeatures
             }
         }
     
-
         private void listBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
         {
             displaySelectedAlbum();
@@ -184,9 +197,16 @@ namespace BasicFacebookFeatures
             listBoxFavoriteTeams.Items.Clear();
             listBoxFavoriteTeams.DisplayMember = "Name";
 
-            foreach (Page team in m_TheLoggedInUser.FavofriteTeams)
+            try
             {
-                listBoxFavoriteTeams.Items.Add(team);
+                foreach (Page team in m_TheLoggedInUser.FavofriteTeams)
+                {
+                    listBoxFavoriteTeams.Items.Add(team);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred!\nError details:\n" + ex.ToString());
             }
 
             if (listBoxFavoriteTeams.Items.Count == 0)
@@ -200,7 +220,7 @@ namespace BasicFacebookFeatures
             if (listBoxFavoriteTeams.SelectedItems.Count == 1)
             {
                 Page selectedTeam = listBoxFavoriteTeams.SelectedItem as Page;
-                pictureBoxFavoriteBox.LoadAsync(selectedTeam.PictureNormalURL);
+                pictureBoxFavoriteTeam.LoadAsync(selectedTeam.PictureNormalURL);
             }
         }
 
@@ -210,16 +230,25 @@ namespace BasicFacebookFeatures
 
             listBoxLikePages.DisplayMember = "Name";
 
-            foreach (Page page in m_TheLoggedInUser.LikedPages)
+            try
             {
-                listBoxLikePages.Items.Add(page);
+                foreach (Page page in m_TheLoggedInUser.LikedPages)
+                {
+                    listBoxLikePages.Items.Add(page);
+                }
             }
-           
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred!\nError details:\n" + ex.ToString());
+            }
+
 
             if (listBoxLikePages.Items.Count == 0)
             {
                 listBoxLikePages.Items.Add("No liked pages to retrieve");
             }
         }
+
+   
     }
 }
