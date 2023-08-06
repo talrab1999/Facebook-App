@@ -32,6 +32,19 @@
             this.buttonLogout = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.buttonFetchTop5Pages = new System.Windows.Forms.Button();
+            this.pictureBoxTop5Photos = new System.Windows.Forms.PictureBox();
+            this.listBoxTop5Pages = new System.Windows.Forms.ListBox();
+            this.labelTop5LikedPages = new System.Windows.Forms.Label();
+            this.label1Sperate = new System.Windows.Forms.Label();
+            this.numericUpDownMinute = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownHour = new System.Windows.Forms.NumericUpDown();
+            this.labelTime = new System.Windows.Forms.Label();
+            this.labelDate = new System.Windows.Forms.Label();
+            this.numericUpDownYear = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownMonth = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownDay = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxScheduledPost = new System.Windows.Forms.CheckBox();
             this.labelSpecialFeatures = new System.Windows.Forms.Label();
             this.pictureBoxFavoriteTeam = new System.Windows.Forms.PictureBox();
             this.listBoxFavoriteTeams = new System.Windows.Forms.ListBox();
@@ -50,6 +63,12 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTop5Photos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinute)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHour)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownYear)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMonth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFavoriteTeam)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlbum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
@@ -61,7 +80,7 @@
             this.buttonLogin.Margin = new System.Windows.Forms.Padding(4);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(268, 32);
-            this.buttonLogin.TabIndex = 36;
+            this.buttonLogin.TabIndex = 1;
             this.buttonLogin.Text = "Login";
             this.buttonLogin.UseVisualStyleBackColor = true;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
@@ -73,7 +92,7 @@
             this.buttonLogout.Margin = new System.Windows.Forms.Padding(4);
             this.buttonLogout.Name = "buttonLogout";
             this.buttonLogout.Size = new System.Drawing.Size(268, 32);
-            this.buttonLogout.TabIndex = 52;
+            this.buttonLogout.TabIndex = 2;
             this.buttonLogout.Text = "Logout";
             this.buttonLogout.UseVisualStyleBackColor = true;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
@@ -91,6 +110,19 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.buttonFetchTop5Pages);
+            this.tabPage1.Controls.Add(this.pictureBoxTop5Photos);
+            this.tabPage1.Controls.Add(this.listBoxTop5Pages);
+            this.tabPage1.Controls.Add(this.labelTop5LikedPages);
+            this.tabPage1.Controls.Add(this.label1Sperate);
+            this.tabPage1.Controls.Add(this.numericUpDownMinute);
+            this.tabPage1.Controls.Add(this.numericUpDownHour);
+            this.tabPage1.Controls.Add(this.labelTime);
+            this.tabPage1.Controls.Add(this.labelDate);
+            this.tabPage1.Controls.Add(this.numericUpDownYear);
+            this.tabPage1.Controls.Add(this.numericUpDownMonth);
+            this.tabPage1.Controls.Add(this.numericUpDownDay);
+            this.tabPage1.Controls.Add(this.checkBoxScheduledPost);
             this.tabPage1.Controls.Add(this.labelSpecialFeatures);
             this.tabPage1.Controls.Add(this.pictureBoxFavoriteTeam);
             this.tabPage1.Controls.Add(this.listBoxFavoriteTeams);
@@ -116,50 +148,247 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // buttonFetchTop5Pages
+            // 
+            this.buttonFetchTop5Pages.Location = new System.Drawing.Point(977, 38);
+            this.buttonFetchTop5Pages.Name = "buttonFetchTop5Pages";
+            this.buttonFetchTop5Pages.Size = new System.Drawing.Size(99, 23);
+            this.buttonFetchTop5Pages.TabIndex = 16;
+            this.buttonFetchTop5Pages.Text = "Fetch";
+            this.buttonFetchTop5Pages.UseVisualStyleBackColor = true;
+            this.buttonFetchTop5Pages.Click += new System.EventHandler(this.buttonFetchTop5Pages_Click);
+            // 
+            // pictureBoxTop5Photos
+            // 
+            this.pictureBoxTop5Photos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxTop5Photos.Location = new System.Drawing.Point(977, 65);
+            this.pictureBoxTop5Photos.Name = "pictureBoxTop5Photos";
+            this.pictureBoxTop5Photos.Size = new System.Drawing.Size(99, 79);
+            this.pictureBoxTop5Photos.TabIndex = 82;
+            this.pictureBoxTop5Photos.TabStop = false;
+            // 
+            // listBoxTop5Pages
+            // 
+            this.listBoxTop5Pages.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxTop5Pages.FormattingEnabled = true;
+            this.listBoxTop5Pages.ItemHeight = 18;
+            this.listBoxTop5Pages.Location = new System.Drawing.Point(698, 66);
+            this.listBoxTop5Pages.Name = "listBoxTop5Pages";
+            this.listBoxTop5Pages.Size = new System.Drawing.Size(378, 112);
+            this.listBoxTop5Pages.TabIndex = 17;
+            this.listBoxTop5Pages.SelectedIndexChanged += new System.EventHandler(this.listBoxTop5Pages_SelectedIndexChanged);
+            // 
+            // labelTop5LikedPages
+            // 
+            this.labelTop5LikedPages.AutoSize = true;
+            this.labelTop5LikedPages.Location = new System.Drawing.Point(695, 44);
+            this.labelTop5LikedPages.Name = "labelTop5LikedPages";
+            this.labelTop5LikedPages.Size = new System.Drawing.Size(124, 18);
+            this.labelTop5LikedPages.TabIndex = 15;
+            this.labelTop5LikedPages.Text = "Top 5 liked pages";
+            // 
+            // label1Sperate
+            // 
+            this.label1Sperate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1Sperate.AutoSize = true;
+            this.label1Sperate.Location = new System.Drawing.Point(586, 128);
+            this.label1Sperate.Name = "label1Sperate";
+            this.label1Sperate.Size = new System.Drawing.Size(12, 18);
+            this.label1Sperate.TabIndex = 79;
+            this.label1Sperate.Text = ":";
+            this.label1Sperate.Visible = false;
+            // 
+            // numericUpDownMinute
+            // 
+            this.numericUpDownMinute.Location = new System.Drawing.Point(600, 126);
+            this.numericUpDownMinute.Maximum = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
+            this.numericUpDownMinute.Name = "numericUpDownMinute";
+            this.numericUpDownMinute.Size = new System.Drawing.Size(35, 24);
+            this.numericUpDownMinute.TabIndex = 14;
+            this.numericUpDownMinute.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownMinute.Visible = false;
+            // 
+            // numericUpDownHour
+            // 
+            this.numericUpDownHour.Location = new System.Drawing.Point(548, 126);
+            this.numericUpDownHour.Maximum = new decimal(new int[] {
+            23,
+            0,
+            0,
+            0});
+            this.numericUpDownHour.Name = "numericUpDownHour";
+            this.numericUpDownHour.Size = new System.Drawing.Size(35, 24);
+            this.numericUpDownHour.TabIndex = 13;
+            this.numericUpDownHour.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownHour.Visible = false;
+            // 
+            // labelTime
+            // 
+            this.labelTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelTime.AutoSize = true;
+            this.labelTime.Location = new System.Drawing.Point(503, 126);
+            this.labelTime.Name = "labelTime";
+            this.labelTime.Size = new System.Drawing.Size(45, 18);
+            this.labelTime.TabIndex = 12;
+            this.labelTime.Text = "Time:";
+            this.labelTime.Visible = false;
+            // 
+            // labelDate
+            // 
+            this.labelDate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelDate.AutoSize = true;
+            this.labelDate.Location = new System.Drawing.Point(312, 126);
+            this.labelDate.Name = "labelDate";
+            this.labelDate.Size = new System.Drawing.Size(43, 18);
+            this.labelDate.TabIndex = 8;
+            this.labelDate.Text = "Date:";
+            this.labelDate.Visible = false;
+            // 
+            // numericUpDownYear
+            // 
+            this.numericUpDownYear.Location = new System.Drawing.Point(440, 124);
+            this.numericUpDownYear.Maximum = new decimal(new int[] {
+            2100,
+            0,
+            0,
+            0});
+            this.numericUpDownYear.Minimum = new decimal(new int[] {
+            2023,
+            0,
+            0,
+            0});
+            this.numericUpDownYear.Name = "numericUpDownYear";
+            this.numericUpDownYear.Size = new System.Drawing.Size(62, 24);
+            this.numericUpDownYear.TabIndex = 11;
+            this.numericUpDownYear.Value = new decimal(new int[] {
+            2023,
+            0,
+            0,
+            0});
+            this.numericUpDownYear.Visible = false;
+            // 
+            // numericUpDownMonth
+            // 
+            this.numericUpDownMonth.Location = new System.Drawing.Point(399, 124);
+            this.numericUpDownMonth.Maximum = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.numericUpDownMonth.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownMonth.Name = "numericUpDownMonth";
+            this.numericUpDownMonth.Size = new System.Drawing.Size(35, 24);
+            this.numericUpDownMonth.TabIndex = 10;
+            this.numericUpDownMonth.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownMonth.Visible = false;
+            // 
+            // numericUpDownDay
+            // 
+            this.numericUpDownDay.Location = new System.Drawing.Point(361, 124);
+            this.numericUpDownDay.Maximum = new decimal(new int[] {
+            31,
+            0,
+            0,
+            0});
+            this.numericUpDownDay.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownDay.Name = "numericUpDownDay";
+            this.numericUpDownDay.Size = new System.Drawing.Size(32, 24);
+            this.numericUpDownDay.TabIndex = 9;
+            this.numericUpDownDay.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownDay.Visible = false;
+            // 
+            // checkBoxScheduledPost
+            // 
+            this.checkBoxScheduledPost.AutoSize = true;
+            this.checkBoxScheduledPost.Location = new System.Drawing.Point(315, 96);
+            this.checkBoxScheduledPost.Name = "checkBoxScheduledPost";
+            this.checkBoxScheduledPost.Size = new System.Drawing.Size(131, 22);
+            this.checkBoxScheduledPost.TabIndex = 7;
+            this.checkBoxScheduledPost.Text = "Scheduled Post";
+            this.checkBoxScheduledPost.UseVisualStyleBackColor = true;
+            this.checkBoxScheduledPost.CheckedChanged += new System.EventHandler(this.checkBoxScheduledPost_CheckedChanged);
+            // 
             // labelSpecialFeatures
             // 
+            this.labelSpecialFeatures.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelSpecialFeatures.AutoSize = true;
-            this.labelSpecialFeatures.Location = new System.Drawing.Point(321, 17);
+            this.labelSpecialFeatures.Location = new System.Drawing.Point(312, 17);
             this.labelSpecialFeatures.Name = "labelSpecialFeatures";
             this.labelSpecialFeatures.Size = new System.Drawing.Size(118, 18);
-            this.labelSpecialFeatures.TabIndex = 70;
+            this.labelSpecialFeatures.TabIndex = 3;
             this.labelSpecialFeatures.Text = "Special Features";
             // 
             // pictureBoxFavoriteTeam
             // 
-            this.pictureBoxFavoriteTeam.Location = new System.Drawing.Point(1032, 302);
+            this.pictureBoxFavoriteTeam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxFavoriteTeam.Location = new System.Drawing.Point(977, 252);
             this.pictureBoxFavoriteTeam.Name = "pictureBoxFavoriteTeam";
-            this.pictureBoxFavoriteTeam.Size = new System.Drawing.Size(100, 50);
+            this.pictureBoxFavoriteTeam.Size = new System.Drawing.Size(99, 61);
             this.pictureBoxFavoriteTeam.TabIndex = 69;
             this.pictureBoxFavoriteTeam.TabStop = false;
             // 
             // listBoxFavoriteTeams
             // 
             this.listBoxFavoriteTeams.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxFavoriteTeams.FormattingEnabled = true;
             this.listBoxFavoriteTeams.ItemHeight = 18;
-            this.listBoxFavoriteTeams.Location = new System.Drawing.Point(841, 302);
+            this.listBoxFavoriteTeams.Location = new System.Drawing.Point(869, 230);
             this.listBoxFavoriteTeams.Name = "listBoxFavoriteTeams";
-            this.listBoxFavoriteTeams.Size = new System.Drawing.Size(184, 310);
-            this.listBoxFavoriteTeams.TabIndex = 68;
+            this.listBoxFavoriteTeams.Size = new System.Drawing.Size(207, 382);
+            this.listBoxFavoriteTeams.TabIndex = 25;
             // 
             // labelFavoriteTeams
             // 
+            this.labelFavoriteTeams.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelFavoriteTeams.AutoSize = true;
-            this.labelFavoriteTeams.Location = new System.Drawing.Point(838, 281);
+            this.labelFavoriteTeams.Location = new System.Drawing.Point(866, 202);
             this.labelFavoriteTeams.Name = "labelFavoriteTeams";
             this.labelFavoriteTeams.Size = new System.Drawing.Size(111, 18);
-            this.labelFavoriteTeams.TabIndex = 67;
+            this.labelFavoriteTeams.TabIndex = 24;
             this.labelFavoriteTeams.Text = "Favorite Teams";
             // 
             // labelLikePages
             // 
             this.labelLikePages.AutoSize = true;
-            this.labelLikePages.Location = new System.Drawing.Point(628, 281);
+            this.labelLikePages.Location = new System.Drawing.Point(597, 202);
             this.labelLikePages.Name = "labelLikePages";
             this.labelLikePages.Size = new System.Drawing.Size(105, 18);
-            this.labelLikePages.TabIndex = 66;
+            this.labelLikePages.TabIndex = 22;
             this.labelLikePages.Text = "My Like Pages";
             this.labelLikePages.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
@@ -169,68 +398,66 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.listBoxLikePages.FormattingEnabled = true;
             this.listBoxLikePages.ItemHeight = 18;
-            this.listBoxLikePages.Location = new System.Drawing.Point(631, 302);
+            this.listBoxLikePages.Location = new System.Drawing.Point(600, 230);
             this.listBoxLikePages.Name = "listBoxLikePages";
-            this.listBoxLikePages.Size = new System.Drawing.Size(160, 310);
-            this.listBoxLikePages.TabIndex = 65;
+            this.listBoxLikePages.Size = new System.Drawing.Size(201, 382);
+            this.listBoxLikePages.TabIndex = 23;
             // 
             // pictureBoxAlbum
             // 
-            this.pictureBoxAlbum.Location = new System.Drawing.Point(490, 302);
+            this.pictureBoxAlbum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxAlbum.Location = new System.Drawing.Point(440, 230);
             this.pictureBoxAlbum.Name = "pictureBoxAlbum";
-            this.pictureBoxAlbum.Size = new System.Drawing.Size(113, 61);
+            this.pictureBoxAlbum.Size = new System.Drawing.Size(94, 61);
             this.pictureBoxAlbum.TabIndex = 64;
             this.pictureBoxAlbum.TabStop = false;
             // 
             // labelMyAlbums
             // 
+            this.labelMyAlbums.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMyAlbums.AutoSize = true;
-            this.labelMyAlbums.Location = new System.Drawing.Point(321, 279);
+            this.labelMyAlbums.Location = new System.Drawing.Point(312, 202);
             this.labelMyAlbums.Name = "labelMyAlbums";
             this.labelMyAlbums.Size = new System.Drawing.Size(81, 18);
-            this.labelMyAlbums.TabIndex = 63;
+            this.labelMyAlbums.TabIndex = 20;
             this.labelMyAlbums.Text = "My Albums";
             // 
             // listBoxAlbums
             // 
             this.listBoxAlbums.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxAlbums.FormattingEnabled = true;
             this.listBoxAlbums.ItemHeight = 18;
-            this.listBoxAlbums.Location = new System.Drawing.Point(324, 302);
+            this.listBoxAlbums.Location = new System.Drawing.Point(315, 230);
             this.listBoxAlbums.Name = "listBoxAlbums";
-            this.listBoxAlbums.Size = new System.Drawing.Size(160, 310);
-            this.listBoxAlbums.TabIndex = 62;
+            this.listBoxAlbums.Size = new System.Drawing.Size(219, 382);
+            this.listBoxAlbums.TabIndex = 21;
             this.listBoxAlbums.SelectedIndexChanged += new System.EventHandler(this.listBoxAlbums_SelectedIndexChanged);
             // 
             // buttonPost
             // 
-            this.buttonPost.Location = new System.Drawing.Point(211, 238);
+            this.buttonPost.Location = new System.Drawing.Point(589, 66);
             this.buttonPost.Name = "buttonPost";
             this.buttonPost.Size = new System.Drawing.Size(75, 23);
-            this.buttonPost.TabIndex = 60;
+            this.buttonPost.TabIndex = 6;
             this.buttonPost.Text = "Post";
             this.buttonPost.UseVisualStyleBackColor = true;
             this.buttonPost.Click += new System.EventHandler(this.buttonPost_Click);
             // 
             // textBoxNewPost
             // 
-            this.textBoxNewPost.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxNewPost.Location = new System.Drawing.Point(18, 208);
+            this.textBoxNewPost.Location = new System.Drawing.Point(315, 65);
             this.textBoxNewPost.Name = "textBoxNewPost";
             this.textBoxNewPost.Size = new System.Drawing.Size(268, 24);
-            this.textBoxNewPost.TabIndex = 59;
+            this.textBoxNewPost.TabIndex = 5;
             // 
             // labelPost
             // 
-            this.labelPost.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.labelPost.AutoSize = true;
-            this.labelPost.Location = new System.Drawing.Point(15, 187);
+            this.labelPost.Location = new System.Drawing.Point(312, 44);
             this.labelPost.Name = "labelPost";
             this.labelPost.Size = new System.Drawing.Size(128, 18);
-            this.labelPost.TabIndex = 58;
+            this.labelPost.TabIndex = 4;
             this.labelPost.Text = "Post a new Status";
             // 
             // labelMyPosts
@@ -238,10 +465,10 @@
             this.labelMyPosts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.labelMyPosts.AutoSize = true;
-            this.labelMyPosts.Location = new System.Drawing.Point(15, 279);
+            this.labelMyPosts.Location = new System.Drawing.Point(15, 202);
             this.labelMyPosts.Name = "labelMyPosts";
             this.labelMyPosts.Size = new System.Drawing.Size(96, 18);
-            this.labelMyPosts.TabIndex = 56;
+            this.labelMyPosts.TabIndex = 18;
             this.labelMyPosts.Text = "My last posts";
             // 
             // listBoxPosts
@@ -250,10 +477,10 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.listBoxPosts.FormattingEnabled = true;
             this.listBoxPosts.ItemHeight = 18;
-            this.listBoxPosts.Location = new System.Drawing.Point(18, 302);
+            this.listBoxPosts.Location = new System.Drawing.Point(18, 230);
             this.listBoxPosts.Name = "listBoxPosts";
-            this.listBoxPosts.Size = new System.Drawing.Size(268, 310);
-            this.listBoxPosts.TabIndex = 57;
+            this.listBoxPosts.Size = new System.Drawing.Size(234, 382);
+            this.listBoxPosts.TabIndex = 19;
             // 
             // pictureBoxProfile
             // 
@@ -288,6 +515,12 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTop5Photos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinute)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHour)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownYear)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMonth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFavoriteTeam)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlbum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
@@ -317,6 +550,19 @@
         private System.Windows.Forms.Label labelLikePages;
         private System.Windows.Forms.ListBox listBoxLikePages;
         private System.Windows.Forms.Label labelSpecialFeatures;
+        private System.Windows.Forms.CheckBox checkBoxScheduledPost;
+        private System.Windows.Forms.NumericUpDown numericUpDownYear;
+        private System.Windows.Forms.NumericUpDown numericUpDownMonth;
+        private System.Windows.Forms.NumericUpDown numericUpDownDay;
+        private System.Windows.Forms.Label labelDate;
+        private System.Windows.Forms.Label label1Sperate;
+        private System.Windows.Forms.NumericUpDown numericUpDownMinute;
+        private System.Windows.Forms.NumericUpDown numericUpDownHour;
+        private System.Windows.Forms.Label labelTime;
+        private System.Windows.Forms.PictureBox pictureBoxTop5Photos;
+        private System.Windows.Forms.ListBox listBoxTop5Pages;
+        private System.Windows.Forms.Label labelTop5LikedPages;
+        private System.Windows.Forms.Button buttonFetchTop5Pages;
     }
 }
 
