@@ -184,7 +184,7 @@
             // 
             // buttonFetchMyEvents
             // 
-            this.buttonFetchMyEvents.Location = new System.Drawing.Point(977, 412);
+            this.buttonFetchMyEvents.Location = new System.Drawing.Point(977, 420);
             this.buttonFetchMyEvents.Name = "buttonFetchMyEvents";
             this.buttonFetchMyEvents.Size = new System.Drawing.Size(99, 23);
             this.buttonFetchMyEvents.TabIndex = 28;
@@ -198,7 +198,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxEvents.FormattingEnabled = true;
             this.listBoxEvents.ItemHeight = 18;
-            this.listBoxEvents.Location = new System.Drawing.Point(869, 436);
+            this.listBoxEvents.Location = new System.Drawing.Point(869, 446);
             this.listBoxEvents.Name = "listBoxEvents";
             this.listBoxEvents.Size = new System.Drawing.Size(207, 166);
             this.listBoxEvents.TabIndex = 29;
@@ -208,7 +208,7 @@
             this.labelMyEvents.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMyEvents.AutoSize = true;
-            this.labelMyEvents.Location = new System.Drawing.Point(866, 412);
+            this.labelMyEvents.Location = new System.Drawing.Point(866, 425);
             this.labelMyEvents.Name = "labelMyEvents";
             this.labelMyEvents.Size = new System.Drawing.Size(53, 18);
             this.labelMyEvents.TabIndex = 27;
