@@ -32,6 +32,11 @@
             this.buttonLogout = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.buttonFetchLikePages = new System.Windows.Forms.Button();
+            this.buttonFetchFavoriteTeams = new System.Windows.Forms.Button();
+            this.buttonFetchMyEvents = new System.Windows.Forms.Button();
+            this.listBoxEvents = new System.Windows.Forms.ListBox();
+            this.labelMyEvents = new System.Windows.Forms.Label();
             this.buttonFetchTop5Pages = new System.Windows.Forms.Button();
             this.pictureBoxTop5Photos = new System.Windows.Forms.PictureBox();
             this.listBoxTop5Pages = new System.Windows.Forms.ListBox();
@@ -61,6 +66,8 @@
             this.listBoxPosts = new System.Windows.Forms.ListBox();
             this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonFetchAlbums = new System.Windows.Forms.Button();
+            this.buttonFetchPosts = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTop5Photos)).BeginInit();
@@ -110,6 +117,13 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.buttonFetchPosts);
+            this.tabPage1.Controls.Add(this.buttonFetchAlbums);
+            this.tabPage1.Controls.Add(this.buttonFetchLikePages);
+            this.tabPage1.Controls.Add(this.buttonFetchFavoriteTeams);
+            this.tabPage1.Controls.Add(this.buttonFetchMyEvents);
+            this.tabPage1.Controls.Add(this.listBoxEvents);
+            this.tabPage1.Controls.Add(this.labelMyEvents);
             this.tabPage1.Controls.Add(this.buttonFetchTop5Pages);
             this.tabPage1.Controls.Add(this.pictureBoxTop5Photos);
             this.tabPage1.Controls.Add(this.listBoxTop5Pages);
@@ -148,9 +162,61 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // buttonFetchLikePages
+            // 
+            this.buttonFetchLikePages.Location = new System.Drawing.Point(702, 206);
+            this.buttonFetchLikePages.Name = "buttonFetchLikePages";
+            this.buttonFetchLikePages.Size = new System.Drawing.Size(99, 23);
+            this.buttonFetchLikePages.TabIndex = 83;
+            this.buttonFetchLikePages.Text = "Fetch";
+            this.buttonFetchLikePages.UseVisualStyleBackColor = true;
+            this.buttonFetchLikePages.Click += new System.EventHandler(this.buttonFetchLikePages_Click);
+            // 
+            // buttonFetchFavoriteTeams
+            // 
+            this.buttonFetchFavoriteTeams.Location = new System.Drawing.Point(977, 207);
+            this.buttonFetchFavoriteTeams.Name = "buttonFetchFavoriteTeams";
+            this.buttonFetchFavoriteTeams.Size = new System.Drawing.Size(99, 23);
+            this.buttonFetchFavoriteTeams.TabIndex = 25;
+            this.buttonFetchFavoriteTeams.Text = "Fetch";
+            this.buttonFetchFavoriteTeams.UseVisualStyleBackColor = true;
+            this.buttonFetchFavoriteTeams.Click += new System.EventHandler(this.buttonFetchFavoriteTeams_Click);
+            // 
+            // buttonFetchMyEvents
+            // 
+            this.buttonFetchMyEvents.Location = new System.Drawing.Point(977, 412);
+            this.buttonFetchMyEvents.Name = "buttonFetchMyEvents";
+            this.buttonFetchMyEvents.Size = new System.Drawing.Size(99, 23);
+            this.buttonFetchMyEvents.TabIndex = 28;
+            this.buttonFetchMyEvents.Text = "Fetch";
+            this.buttonFetchMyEvents.UseVisualStyleBackColor = true;
+            this.buttonFetchMyEvents.Click += new System.EventHandler(this.buttonFetchMyEvents_Click);
+            // 
+            // listBoxEvents
+            // 
+            this.listBoxEvents.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxEvents.FormattingEnabled = true;
+            this.listBoxEvents.ItemHeight = 18;
+            this.listBoxEvents.Location = new System.Drawing.Point(869, 436);
+            this.listBoxEvents.Name = "listBoxEvents";
+            this.listBoxEvents.Size = new System.Drawing.Size(207, 166);
+            this.listBoxEvents.TabIndex = 29;
+            // 
+            // labelMyEvents
+            // 
+            this.labelMyEvents.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelMyEvents.AutoSize = true;
+            this.labelMyEvents.Location = new System.Drawing.Point(866, 412);
+            this.labelMyEvents.Name = "labelMyEvents";
+            this.labelMyEvents.Size = new System.Drawing.Size(53, 18);
+            this.labelMyEvents.TabIndex = 27;
+            this.labelMyEvents.Text = "Events";
+            // 
             // buttonFetchTop5Pages
             // 
-            this.buttonFetchTop5Pages.Location = new System.Drawing.Point(977, 38);
+            this.buttonFetchTop5Pages.Location = new System.Drawing.Point(977, 42);
             this.buttonFetchTop5Pages.Name = "buttonFetchTop5Pages";
             this.buttonFetchTop5Pages.Size = new System.Drawing.Size(99, 23);
             this.buttonFetchTop5Pages.TabIndex = 16;
@@ -368,15 +434,15 @@
             this.listBoxFavoriteTeams.ItemHeight = 18;
             this.listBoxFavoriteTeams.Location = new System.Drawing.Point(869, 230);
             this.listBoxFavoriteTeams.Name = "listBoxFavoriteTeams";
-            this.listBoxFavoriteTeams.Size = new System.Drawing.Size(207, 382);
-            this.listBoxFavoriteTeams.TabIndex = 25;
+            this.listBoxFavoriteTeams.Size = new System.Drawing.Size(207, 166);
+            this.listBoxFavoriteTeams.TabIndex = 26;
             // 
             // labelFavoriteTeams
             // 
             this.labelFavoriteTeams.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelFavoriteTeams.AutoSize = true;
-            this.labelFavoriteTeams.Location = new System.Drawing.Point(866, 202);
+            this.labelFavoriteTeams.Location = new System.Drawing.Point(866, 206);
             this.labelFavoriteTeams.Name = "labelFavoriteTeams";
             this.labelFavoriteTeams.Size = new System.Drawing.Size(111, 18);
             this.labelFavoriteTeams.TabIndex = 24;
@@ -385,11 +451,11 @@
             // labelLikePages
             // 
             this.labelLikePages.AutoSize = true;
-            this.labelLikePages.Location = new System.Drawing.Point(597, 202);
+            this.labelLikePages.Location = new System.Drawing.Point(597, 209);
             this.labelLikePages.Name = "labelLikePages";
-            this.labelLikePages.Size = new System.Drawing.Size(105, 18);
+            this.labelLikePages.Size = new System.Drawing.Size(81, 18);
             this.labelLikePages.TabIndex = 22;
-            this.labelLikePages.Text = "My Like Pages";
+            this.labelLikePages.Text = "Like Pages";
             this.labelLikePages.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // listBoxLikePages
@@ -416,11 +482,11 @@
             // 
             this.labelMyAlbums.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMyAlbums.AutoSize = true;
-            this.labelMyAlbums.Location = new System.Drawing.Point(312, 202);
+            this.labelMyAlbums.Location = new System.Drawing.Point(312, 209);
             this.labelMyAlbums.Name = "labelMyAlbums";
-            this.labelMyAlbums.Size = new System.Drawing.Size(81, 18);
+            this.labelMyAlbums.Size = new System.Drawing.Size(57, 18);
             this.labelMyAlbums.TabIndex = 20;
-            this.labelMyAlbums.Text = "My Albums";
+            this.labelMyAlbums.Text = "Albums";
             // 
             // listBoxAlbums
             // 
@@ -465,11 +531,11 @@
             this.labelMyPosts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.labelMyPosts.AutoSize = true;
-            this.labelMyPosts.Location = new System.Drawing.Point(15, 202);
+            this.labelMyPosts.Location = new System.Drawing.Point(15, 209);
             this.labelMyPosts.Name = "labelMyPosts";
-            this.labelMyPosts.Size = new System.Drawing.Size(96, 18);
+            this.labelMyPosts.Size = new System.Drawing.Size(77, 18);
             this.labelMyPosts.TabIndex = 18;
-            this.labelMyPosts.Text = "My last posts";
+            this.labelMyPosts.Text = "Last posts";
             // 
             // listBoxPosts
             // 
@@ -484,6 +550,7 @@
             // 
             // pictureBoxProfile
             // 
+            this.pictureBoxProfile.BackColor = System.Drawing.Color.White;
             this.pictureBoxProfile.Location = new System.Drawing.Point(18, 96);
             this.pictureBoxProfile.Name = "pictureBoxProfile";
             this.pictureBoxProfile.Size = new System.Drawing.Size(79, 78);
@@ -500,6 +567,26 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // buttonFetchAlbums
+            // 
+            this.buttonFetchAlbums.Location = new System.Drawing.Point(435, 206);
+            this.buttonFetchAlbums.Name = "buttonFetchAlbums";
+            this.buttonFetchAlbums.Size = new System.Drawing.Size(99, 23);
+            this.buttonFetchAlbums.TabIndex = 84;
+            this.buttonFetchAlbums.Text = "Fetch";
+            this.buttonFetchAlbums.UseVisualStyleBackColor = true;
+            this.buttonFetchAlbums.Click += new System.EventHandler(this.buttonFetchAlbums_Click);
+            // 
+            // buttonFetchPosts
+            // 
+            this.buttonFetchPosts.Location = new System.Drawing.Point(153, 206);
+            this.buttonFetchPosts.Name = "buttonFetchPosts";
+            this.buttonFetchPosts.Size = new System.Drawing.Size(99, 23);
+            this.buttonFetchPosts.TabIndex = 85;
+            this.buttonFetchPosts.Text = "Fetch";
+            this.buttonFetchPosts.UseVisualStyleBackColor = true;
+            this.buttonFetchPosts.Click += new System.EventHandler(this.buttonFetchPosts_Click);
             // 
             // FormMain
             // 
@@ -563,6 +650,13 @@
         private System.Windows.Forms.ListBox listBoxTop5Pages;
         private System.Windows.Forms.Label labelTop5LikedPages;
         private System.Windows.Forms.Button buttonFetchTop5Pages;
+        private System.Windows.Forms.ListBox listBoxEvents;
+        private System.Windows.Forms.Label labelMyEvents;
+        private System.Windows.Forms.Button buttonFetchMyEvents;
+        private System.Windows.Forms.Button buttonFetchFavoriteTeams;
+        private System.Windows.Forms.Button buttonFetchLikePages;
+        private System.Windows.Forms.Button buttonFetchAlbums;
+        private System.Windows.Forms.Button buttonFetchPosts;
     }
 }
 

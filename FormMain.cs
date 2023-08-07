@@ -79,6 +79,14 @@ namespace BasicFacebookFeatures
             m_LoginResult = null;
             buttonLogin.Enabled = true;
             buttonLogout.Enabled = false;
+            pictureBoxProfile.ImageLocation = null;
+            listBoxPosts.Items.Clear();
+            listBoxAlbums.Items.Clear();
+            listBoxEvents.Items.Clear();
+            listBoxFavoriteTeams.Items.Clear();
+            listBoxLikePages.Items.Clear();
+            listBoxTop5Pages.Items.Clear(); 
+
         }
 
         private void fetchUserInfo()
@@ -86,15 +94,6 @@ namespace BasicFacebookFeatures
             buttonLogin.Text = $"Logged in as {m_TheLoggedInUser.Name}";
             buttonLogin.BackColor = Color.LightGreen;
             pictureBoxProfile.ImageLocation = m_TheLoggedInUser.PictureNormalURL;
-            loadUI();
-        }
-
-        private void loadUI()
-        {
-            fetchPosts();
-            fetchAlbums();
-            fetchFavoriteTeams();
-            fetchLikePages();
         }
 
         private void fetchPosts()
@@ -198,7 +197,7 @@ namespace BasicFacebookFeatures
                 }
                 else
                 {
-                    string scheduledTimeIso = scheduledTime.ToString("yyyy-MM-ddTHH:mm:sszzz");
+                    string scheduledTimeIso = scheduledTime.ToString("yyyy-MM-ddTHH:mm");
                     string parameters = $"scheduled_publish_time, {scheduledTimeIso}";
                     m_TheLoggedInUser.PostStatus(textBoxNewPost.Text, parameters);
                     MessageBox.Show($"Status will be Post in: {day}/{month}/{year}, {hour}:{minute}!");
@@ -366,6 +365,47 @@ namespace BasicFacebookFeatures
                 Page selectedTeam = listBoxTop5Pages.SelectedItem as Page;
                 pictureBoxTop5Photos.LoadAsync(selectedTeam.PictureNormalURL);
             }
+        }
+
+        private void buttonFetchMyEvents_Click(object sender, EventArgs e)
+        {
+            fetchMyEvents();
+        }
+
+        private void fetchMyEvents()
+        {
+            listBoxEvents.Items.Clear();
+            listBoxEvents.DisplayMember = "Name";
+            foreach (Event fbEvent in m_TheLoggedInUser.Events)
+            {
+                listBoxEvents.Items.Add(fbEvent);
+            }
+
+            if (listBoxEvents.Items.Count == 0)
+            {
+                MessageBox.Show("No Events to retrieve :(");
+            }
+
+        }
+
+        private void buttonFetchFavoriteTeams_Click(object sender, EventArgs e)
+        {
+            fetchFavoriteTeams();
+        }
+
+        private void buttonFetchLikePages_Click(object sender, EventArgs e)
+        {
+            fetchLikePages();
+        }
+
+        private void buttonFetchPosts_Click(object sender, EventArgs e)
+        {
+            fetchPosts();
+        }
+
+        private void buttonFetchAlbums_Click(object sender, EventArgs e)
+        {
+            fetchAlbums();
         }
     }
 }
