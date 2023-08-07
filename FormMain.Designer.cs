@@ -32,6 +32,8 @@
             this.buttonLogout = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.buttonFetchPosts = new System.Windows.Forms.Button();
+            this.buttonFetchAlbums = new System.Windows.Forms.Button();
             this.buttonFetchLikePages = new System.Windows.Forms.Button();
             this.buttonFetchFavoriteTeams = new System.Windows.Forms.Button();
             this.buttonFetchMyEvents = new System.Windows.Forms.Button();
@@ -66,8 +68,6 @@
             this.listBoxPosts = new System.Windows.Forms.ListBox();
             this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.buttonFetchAlbums = new System.Windows.Forms.Button();
-            this.buttonFetchPosts = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTop5Photos)).BeginInit();
@@ -162,8 +162,32 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // buttonFetchPosts
+            // 
+            this.buttonFetchPosts.Enabled = false;
+            this.buttonFetchPosts.Location = new System.Drawing.Point(153, 206);
+            this.buttonFetchPosts.Name = "buttonFetchPosts";
+            this.buttonFetchPosts.Size = new System.Drawing.Size(99, 23);
+            this.buttonFetchPosts.TabIndex = 85;
+            this.buttonFetchPosts.Text = "Fetch";
+            this.buttonFetchPosts.UseVisualStyleBackColor = true;
+            this.buttonFetchPosts.Click += new System.EventHandler(this.buttonFetchPosts_Click);
+            // 
+            // buttonFetchAlbums
+            // 
+            this.buttonFetchAlbums.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFetchAlbums.Enabled = false;
+            this.buttonFetchAlbums.Location = new System.Drawing.Point(435, 206);
+            this.buttonFetchAlbums.Name = "buttonFetchAlbums";
+            this.buttonFetchAlbums.Size = new System.Drawing.Size(99, 23);
+            this.buttonFetchAlbums.TabIndex = 84;
+            this.buttonFetchAlbums.Text = "Fetch";
+            this.buttonFetchAlbums.UseVisualStyleBackColor = true;
+            this.buttonFetchAlbums.Click += new System.EventHandler(this.buttonFetchAlbums_Click);
+            // 
             // buttonFetchLikePages
             // 
+            this.buttonFetchLikePages.Enabled = false;
             this.buttonFetchLikePages.Location = new System.Drawing.Point(702, 206);
             this.buttonFetchLikePages.Name = "buttonFetchLikePages";
             this.buttonFetchLikePages.Size = new System.Drawing.Size(99, 23);
@@ -174,6 +198,8 @@
             // 
             // buttonFetchFavoriteTeams
             // 
+            this.buttonFetchFavoriteTeams.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFetchFavoriteTeams.Enabled = false;
             this.buttonFetchFavoriteTeams.Location = new System.Drawing.Point(977, 207);
             this.buttonFetchFavoriteTeams.Name = "buttonFetchFavoriteTeams";
             this.buttonFetchFavoriteTeams.Size = new System.Drawing.Size(99, 23);
@@ -184,6 +210,8 @@
             // 
             // buttonFetchMyEvents
             // 
+            this.buttonFetchMyEvents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFetchMyEvents.Enabled = false;
             this.buttonFetchMyEvents.Location = new System.Drawing.Point(977, 420);
             this.buttonFetchMyEvents.Name = "buttonFetchMyEvents";
             this.buttonFetchMyEvents.Size = new System.Drawing.Size(99, 23);
@@ -194,8 +222,7 @@
             // 
             // listBoxEvents
             // 
-            this.listBoxEvents.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxEvents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxEvents.FormattingEnabled = true;
             this.listBoxEvents.ItemHeight = 18;
             this.listBoxEvents.Location = new System.Drawing.Point(869, 446);
@@ -216,6 +243,8 @@
             // 
             // buttonFetchTop5Pages
             // 
+            this.buttonFetchTop5Pages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFetchTop5Pages.Enabled = false;
             this.buttonFetchTop5Pages.Location = new System.Drawing.Point(977, 42);
             this.buttonFetchTop5Pages.Name = "buttonFetchTop5Pages";
             this.buttonFetchTop5Pages.Size = new System.Drawing.Size(99, 23);
@@ -398,6 +427,7 @@
             // checkBoxScheduledPost
             // 
             this.checkBoxScheduledPost.AutoSize = true;
+            this.checkBoxScheduledPost.Enabled = false;
             this.checkBoxScheduledPost.Location = new System.Drawing.Point(315, 96);
             this.checkBoxScheduledPost.Name = "checkBoxScheduledPost";
             this.checkBoxScheduledPost.Size = new System.Drawing.Size(131, 22);
@@ -420,7 +450,7 @@
             // pictureBoxFavoriteTeam
             // 
             this.pictureBoxFavoriteTeam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxFavoriteTeam.Location = new System.Drawing.Point(977, 252);
+            this.pictureBoxFavoriteTeam.Location = new System.Drawing.Point(977, 227);
             this.pictureBoxFavoriteTeam.Name = "pictureBoxFavoriteTeam";
             this.pictureBoxFavoriteTeam.Size = new System.Drawing.Size(99, 61);
             this.pictureBoxFavoriteTeam.TabIndex = 69;
@@ -428,8 +458,7 @@
             // 
             // listBoxFavoriteTeams
             // 
-            this.listBoxFavoriteTeams.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxFavoriteTeams.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxFavoriteTeams.FormattingEnabled = true;
             this.listBoxFavoriteTeams.ItemHeight = 18;
             this.listBoxFavoriteTeams.Location = new System.Drawing.Point(869, 230);
@@ -502,6 +531,7 @@
             // 
             // buttonPost
             // 
+            this.buttonPost.Enabled = false;
             this.buttonPost.Location = new System.Drawing.Point(589, 66);
             this.buttonPost.Name = "buttonPost";
             this.buttonPost.Size = new System.Drawing.Size(75, 23);
@@ -567,26 +597,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // buttonFetchAlbums
-            // 
-            this.buttonFetchAlbums.Location = new System.Drawing.Point(435, 206);
-            this.buttonFetchAlbums.Name = "buttonFetchAlbums";
-            this.buttonFetchAlbums.Size = new System.Drawing.Size(99, 23);
-            this.buttonFetchAlbums.TabIndex = 84;
-            this.buttonFetchAlbums.Text = "Fetch";
-            this.buttonFetchAlbums.UseVisualStyleBackColor = true;
-            this.buttonFetchAlbums.Click += new System.EventHandler(this.buttonFetchAlbums_Click);
-            // 
-            // buttonFetchPosts
-            // 
-            this.buttonFetchPosts.Location = new System.Drawing.Point(153, 206);
-            this.buttonFetchPosts.Name = "buttonFetchPosts";
-            this.buttonFetchPosts.Size = new System.Drawing.Size(99, 23);
-            this.buttonFetchPosts.TabIndex = 85;
-            this.buttonFetchPosts.Text = "Fetch";
-            this.buttonFetchPosts.UseVisualStyleBackColor = true;
-            this.buttonFetchPosts.Click += new System.EventHandler(this.buttonFetchPosts_Click);
             // 
             // FormMain
             // 

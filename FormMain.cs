@@ -35,35 +35,35 @@ namespace BasicFacebookFeatures
 
         private void login()
         {
-          /*
-            m_LoginResult = FacebookService.Login(
-                "610365831081527",
-                "email",
-                "public_profile",
-                "user_age_range",
-                "user_birthday",
-                "user_events",
-                "user_friends",
-                "user_gender",
-                "user_hometown",
-                "user_likes",
-                "user_link",
-                "user_location",
-                "user_photos",
-                "user_posts",
-                "user_videos",
-                "publish_to_groups",
-                "pages_read_engagement",
-                "pages_manage_posts"
-                );
-          */
-          
+            /*
+              m_LoginResult = FacebookService.Login(
+                  "610365831081527",
+                  "email",
+                  "public_profile",
+                  "user_age_range",
+                  "user_birthday",
+                  "user_events",
+                  "user_friends",
+                  "user_gender",
+                  "user_hometown",
+                  "user_likes",
+                  "user_link",
+                  "user_location",
+                  "user_photos",
+                  "user_posts",
+                  "user_videos",
+                  "publish_to_groups",
+                  "pages_read_engagement",
+                  "pages_manage_posts"
+                  );
+            */
 
 
-           m_LoginResult = FacebookService.Connect("EAAIrH96LbjcBO0iwwqb8jHIEGPavdqE4HT69ed6IZCn2nZBWeOfNTDjDjk2FBpIpybdtXjZBHwObGlil2CKCdvaZAGf2hsrKQPSXGBPGb8xEG46Bvc4i8YbiP3y5TWAXoGtWQoZAxUa8TIOYuHXIlIPk6sHlW08tljqp8VtNhVvJbOo3KHzCWjxvZACiwe");
+
+            m_LoginResult = FacebookService.Connect("EAAIrH96LbjcBO0iwwqb8jHIEGPavdqE4HT69ed6IZCn2nZBWeOfNTDjDjk2FBpIpybdtXjZBHwObGlil2CKCdvaZAGf2hsrKQPSXGBPGb8xEG46Bvc4i8YbiP3y5TWAXoGtWQoZAxUa8TIOYuHXIlIPk6sHlW08tljqp8VtNhVvJbOo3KHzCWjxvZACiwe");
 
             if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
-            { 
+            {
                 m_TheLoggedInUser = m_LoginResult.LoggedInUser;
                 buttonLogin.Enabled = false;
                 buttonLogout.Enabled = true;
@@ -80,13 +80,7 @@ namespace BasicFacebookFeatures
             buttonLogin.Enabled = true;
             buttonLogout.Enabled = false;
             pictureBoxProfile.ImageLocation = null;
-            listBoxPosts.Items.Clear();
-            listBoxAlbums.Items.Clear();
-            listBoxEvents.Items.Clear();
-            listBoxFavoriteTeams.Items.Clear();
-            listBoxLikePages.Items.Clear();
-            listBoxTop5Pages.Items.Clear(); 
-
+            switchEnabledModeAndClearListBox();
         }
 
         private void fetchUserInfo()
@@ -94,6 +88,27 @@ namespace BasicFacebookFeatures
             buttonLogin.Text = $"Logged in as {m_TheLoggedInUser.Name}";
             buttonLogin.BackColor = Color.LightGreen;
             pictureBoxProfile.ImageLocation = m_TheLoggedInUser.PictureNormalURL;
+            switchEnabledModeAndClearListBox();
+        }
+
+        private void switchEnabledModeAndClearListBox()
+        {
+            buttonFetchAlbums.Enabled = !buttonFetchAlbums.Enabled;
+            buttonFetchFavoriteTeams.Enabled = !buttonFetchFavoriteTeams.Enabled;
+            buttonFetchLikePages.Enabled = !buttonFetchLikePages.Enabled;
+            buttonFetchTop5Pages.Enabled = !buttonFetchTop5Pages.Enabled;
+            buttonFetchMyEvents.Enabled = !buttonFetchPosts.Enabled;
+            buttonFetchPosts.Enabled = !buttonFetchPosts.Enabled;
+            buttonPost.Enabled = !buttonPost.Enabled;
+            checkBoxScheduledPost.Enabled = !checkBoxScheduledPost.Enabled;
+
+            listBoxPosts.Items.Clear();
+            listBoxAlbums.Items.Clear();
+            listBoxEvents.Items.Clear();
+            listBoxFavoriteTeams.Items.Clear();
+            listBoxLikePages.Items.Clear();
+            listBoxTop5Pages.Items.Clear();
+
         }
 
         private void fetchPosts()
@@ -153,28 +168,21 @@ namespace BasicFacebookFeatures
         private void buttonPost_Click(object sender, EventArgs e)
         {
 
-            if (m_TheLoggedInUser != null)
+            if (!checkBoxScheduledPost.Checked)
             {
-                if (!checkBoxScheduledPost.Checked)
+                try
                 {
-                    try
-                    {
-                        Status postedStatus = m_TheLoggedInUser.PostStatus(textBoxNewPost.Text);
-                        MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error occurred!\nError details:\n" + ex.ToString());
-                    }
+                    Status postedStatus = m_TheLoggedInUser.PostStatus(textBoxNewPost.Text);
+                    MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
                 }
-                else
+                catch (Exception ex)
                 {
-                    scheduledPost();
+                    MessageBox.Show("Error occurred!\nError details:\n" + ex.ToString());
                 }
             }
             else
             {
-                MessageBox.Show("You need to be logged in to post!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                scheduledPost();
             }
         }
     
@@ -407,5 +415,6 @@ namespace BasicFacebookFeatures
         {
             fetchAlbums();
         }
+
     }
 }
