@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Windows.Forms.VisualStyles;
+using System.Threading;
 
 namespace BasicFacebookFeatures
 {
@@ -21,7 +22,7 @@ namespace BasicFacebookFeatures
         }
 
         private LoginResult m_LoginResult;
-        private User        m_TheLoggedInUser;
+        private User m_TheLoggedInUser;
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
@@ -185,8 +186,14 @@ namespace BasicFacebookFeatures
                 scheduledPost();
             }
         }
-    
+
         private void scheduledPost()
+        {
+            Thread thread = new Thread(new ThreadStart(ScheduledPostThread));
+            thread.Start();
+        }
+
+        private void ScheduledPostThread()
         {
             try
             {
@@ -199,7 +206,7 @@ namespace BasicFacebookFeatures
 
                 DateTime scheduledTime = new DateTime(year, month, day, hour, minute, 0, DateTimeKind.Utc);
 
-                if(scheduledTime < currentTime)
+                if (scheduledTime < currentTime)
                 {
                     throw new Exception("Please enter a future date !");
                 }
@@ -208,9 +215,8 @@ namespace BasicFacebookFeatures
                     string scheduledTimeIso = scheduledTime.ToString("yyyy-MM-ddTHH:mm");
                     string parameters = $"scheduled_publish_time, {scheduledTimeIso}";
                     m_TheLoggedInUser.PostStatus(textBoxNewPost.Text, parameters);
-                    MessageBox.Show($"Status will be Post in: {day}/{month}/{year}, {hour}:{minute}!");
+                    MessageBox.Show($"Status will be posted in: {day}/{month}/{year}, {hour}:{minute}!");
                 }
-
             }
             catch (Exception ex)
             {
@@ -271,7 +277,7 @@ namespace BasicFacebookFeatures
             }
         }
 
-        private void fetchLikePages() 
+        private void fetchLikePages()
         {
             listBoxLikePages.Items.Clear();
 
@@ -315,7 +321,7 @@ namespace BasicFacebookFeatures
             List<Page> pageList = new List<Page>();
 
             try
-            { 
+            {
                 foreach (Page page in m_TheLoggedInUser.LikedPages)
                 {
                     if (pageList.Count < 5)
