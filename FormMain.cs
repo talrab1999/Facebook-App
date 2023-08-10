@@ -20,8 +20,8 @@ namespace BasicFacebookFeatures
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
         }
 
-        private FacebookWrapper.LoginResult m_LoginResult;
-        private FacebookWrapper.ObjectModel.User m_TheLoggedInUser;
+        private LoginResult m_LoginResult;
+        private User        m_TheLoggedInUser;
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
@@ -315,45 +315,36 @@ namespace BasicFacebookFeatures
             List<Page> pageList = new List<Page>();
 
             try
-            {
-                if (m_TheLoggedInUser != null)
+            { 
+                foreach (Page page in m_TheLoggedInUser.LikedPages)
                 {
-                    foreach (Page page in m_TheLoggedInUser.LikedPages)
+                    if (pageList.Count < 5)
                     {
-                        if (pageList.Count < 5)
+                        pageList.Add(page);
+                    }
+                    else
+                    {
+                        foreach (Page topPage in pageList)
                         {
-                            pageList.Add(page);
-                        }
-                        else
-                        {
-                            foreach (Page topPage in pageList)
+                            if (page.LikesCount > topPage.LikesCount)
                             {
-                                if (page.LikesCount > topPage.LikesCount)
-                                {
-                                    pageList.Add(topPage);
-                                    pageList.Remove(topPage);
-                                }
+                                pageList.Add(topPage);
+                                pageList.Remove(topPage);
                             }
                         }
                     }
-
-                    foreach (Page topPage in pageList)
-                    {
-                        listBoxTop5Pages.Items.Add(topPage);
-                    }
-
-
                 }
-                else
+
+                foreach (Page topPage in pageList)
                 {
-                    MessageBox.Show("You need to be logged in to post!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    listBoxTop5Pages.Items.Add(topPage);
                 }
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error occurred!\nError details:\n" + ex.ToString());
             }
-
 
             if (listBoxTop5Pages.Items.Count == 0)
             {
