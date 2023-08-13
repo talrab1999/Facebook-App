@@ -10,6 +10,7 @@ using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Windows.Forms.VisualStyles;
 using System.Threading;
+using SpacielFeatures;
 
 namespace BasicFacebookFeatures
 {
@@ -18,17 +19,20 @@ namespace BasicFacebookFeatures
         public FormMain()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
         }
 
-        private LoginResult m_LoginResult;
-        private User m_TheLoggedInUser;
+        public LoginResult          LoginResult { get; set; }
+        public User                 TheLoggedInUser { get; set; }
+        public FeatureTop5LikePages Top5LikePages { get; set; }
+        public ScheduledPost        ScheduledPostManger { get; set; }
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             Clipboard.SetText("design.patterns");
 
-            if (m_LoginResult == null)
+            if (LoginResult == null)
             {
                 login();
             }
@@ -61,13 +65,11 @@ namespace BasicFacebookFeatures
 
 
 
-            m_LoginResult = FacebookService.Connect("EAAIrH96LbjcBO0iwwqb8jHIEGPavdqE4HT69ed6IZCn2nZBWeOfNTDjDjk2FBpIpybdtXjZBHwObGlil2CKCdvaZAGf2hsrKQPSXGBPGb8xEG46Bvc4i8YbiP3y5TWAXoGtWQoZAxUa8TIOYuHXIlIPk6sHlW08tljqp8VtNhVvJbOo3KHzCWjxvZACiwe");
+            LoginResult = FacebookService.Connect("EAAIrH96LbjcBO0iwwqb8jHIEGPavdqE4HT69ed6IZCn2nZBWeOfNTDjDjk2FBpIpybdtXjZBHwObGlil2CKCdvaZAGf2hsrKQPSXGBPGb8xEG46Bvc4i8YbiP3y5TWAXoGtWQoZAxUa8TIOYuHXIlIPk6sHlW08tljqp8VtNhVvJbOo3KHzCWjxvZACiwe");
 
-            if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
+            if (string.IsNullOrEmpty(LoginResult.ErrorMessage))
             {
-                m_TheLoggedInUser = m_LoginResult.LoggedInUser;
-                buttonLogin.Enabled = false;
-                buttonLogout.Enabled = true;
+                TheLoggedInUser = LoginResult.LoggedInUser;
                 fetchUserInfo();
             }
         }
@@ -77,23 +79,22 @@ namespace BasicFacebookFeatures
             FacebookService.LogoutWithUI();
             buttonLogin.Text = "Login";
             buttonLogin.BackColor = buttonLogout.BackColor;
-            m_LoginResult = null;
-            buttonLogin.Enabled = true;
-            buttonLogout.Enabled = false;
+            LoginResult = null;
             pictureBoxProfile.ImageLocation = null;
             switchEnabledModeAndClearListBox();
         }
 
         private void fetchUserInfo()
         {
-            buttonLogin.Text = $"Logged in as {m_TheLoggedInUser.Name}";
+            buttonLogin.Text = $"Logged in as {TheLoggedInUser.Name}";
             buttonLogin.BackColor = Color.LightGreen;
-            pictureBoxProfile.ImageLocation = m_TheLoggedInUser.PictureNormalURL;
+            pictureBoxProfile.ImageLocation = TheLoggedInUser.PictureNormalURL;
             switchEnabledModeAndClearListBox();
         }
 
         private void switchEnabledModeAndClearListBox()
         {
+
             buttonFetchAlbums.Enabled = !buttonFetchAlbums.Enabled;
             buttonFetchFavoriteTeams.Enabled = !buttonFetchFavoriteTeams.Enabled;
             buttonFetchLikePages.Enabled = !buttonFetchLikePages.Enabled;
@@ -102,13 +103,22 @@ namespace BasicFacebookFeatures
             buttonFetchPosts.Enabled = !buttonFetchPosts.Enabled;
             buttonPost.Enabled = !buttonPost.Enabled;
             checkBoxScheduledPost.Enabled = !checkBoxScheduledPost.Enabled;
+            buttonLogin.Enabled = !buttonLogin.Enabled;
+            buttonLogout.Enabled = !buttonLogout.Enabled;
+            textBoxNewPost.Enabled = !textBoxNewPost.Enabled;
 
+            textBoxNewPost.Clear();
             listBoxPosts.Items.Clear();
             listBoxAlbums.Items.Clear();
             listBoxEvents.Items.Clear();
             listBoxFavoriteTeams.Items.Clear();
             listBoxLikePages.Items.Clear();
             listBoxTop5Pages.Items.Clear();
+
+            if(checkBoxScheduledPost.Checked)
+            {
+                checkBoxScheduledPost.Checked = !checkBoxScheduledPost.Checked;
+            }
 
         }
 
@@ -117,7 +127,7 @@ namespace BasicFacebookFeatures
             listBoxPosts.Items.Clear();
             try
             {
-                foreach (Post post in m_TheLoggedInUser.Posts)
+                foreach (Post post in TheLoggedInUser.Posts)
                 {
                     if (post.Message != null)
                     {
@@ -150,7 +160,7 @@ namespace BasicFacebookFeatures
 
             try
             {
-                foreach (Album album in m_TheLoggedInUser.Albums)
+                foreach (Album album in TheLoggedInUser.Albums)
                 {
                     listBoxAlbums.Items.Add(album);
                 }
@@ -173,7 +183,7 @@ namespace BasicFacebookFeatures
             {
                 try
                 {
-                    Status postedStatus = m_TheLoggedInUser.PostStatus(textBoxNewPost.Text);
+                    Status postedStatus = TheLoggedInUser.PostStatus(textBoxNewPost.Text);
                     MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
                 }
                 catch (Exception ex)
@@ -189,39 +199,18 @@ namespace BasicFacebookFeatures
 
         private void scheduledPost()
         {
-            Thread thread = new Thread(new ThreadStart(ScheduledPostThread));
-            thread.Start();
-        }
+            int day = (int)numericUpDownDay.Value;
+            int month = (int)numericUpDownMonth.Value;
+            int year = (int)numericUpDownYear.Value;
+            int hour = (int)numericUpDownHour.Value;
+            int minute = (int)numericUpDownMinute.Value;
 
-        private void ScheduledPostThread()
-        {
-            try
-            {
-                DateTime currentTime = DateTime.UtcNow;
-                int day = (int)numericUpDownDay.Value;
-                int month = (int)numericUpDownMonth.Value;
-                int year = (int)numericUpDownYear.Value;
-                int hour = (int)numericUpDownHour.Value;
-                int minute = (int)numericUpDownMinute.Value;
+            DateTime scheduledTime = new DateTime(year, month, day, hour, minute, 0, DateTimeKind.Utc);
 
-                DateTime scheduledTime = new DateTime(year, month, day, hour, minute, 0, DateTimeKind.Utc);
+            ScheduledPostManger = new ScheduledPost(TheLoggedInUser, scheduledTime, textBoxNewPost.Text);
 
-                if (scheduledTime < currentTime)
-                {
-                    throw new Exception("Please enter a future date !");
-                }
-                else
-                {
-                    string scheduledTimeIso = scheduledTime.ToString("yyyy-MM-ddTHH:mm");
-                    string parameters = $"scheduled_publish_time, {scheduledTimeIso}";
-                    m_TheLoggedInUser.PostStatus(textBoxNewPost.Text, parameters);
-                    MessageBox.Show($"Status will be posted in: {day}/{month}/{year}, {hour}:{minute}!");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error occurred!\nError details:\n" + ex.ToString());
-            }
+            ScheduledPostManger.PostScheduledPost();
+
         }
 
         private void listBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
@@ -252,7 +241,7 @@ namespace BasicFacebookFeatures
 
             try
             {
-                foreach (Page team in m_TheLoggedInUser.FavofriteTeams)
+                foreach (Page team in TheLoggedInUser.FavofriteTeams)
                 {
                     listBoxFavoriteTeams.Items.Add(team);
                 }
@@ -285,7 +274,7 @@ namespace BasicFacebookFeatures
 
             try
             {
-                foreach (Page page in m_TheLoggedInUser.LikedPages)
+                foreach (Page page in TheLoggedInUser.LikedPages)
                 {
                     listBoxLikePages.Items.Add(page);
                 }
@@ -318,32 +307,14 @@ namespace BasicFacebookFeatures
         {
             listBoxTop5Pages.Items.Clear();
             listBoxTop5Pages.DisplayMember = "Name";
-            List<Page> pageList = new List<Page>();
 
             try
             {
-                foreach (Page page in m_TheLoggedInUser.LikedPages)
-                {
-                    if (pageList.Count < 5)
-                    {
-                        pageList.Add(page);
-                    }
-                    else
-                    {
-                        foreach (Page topPage in pageList)
-                        {
-                            if (page.LikesCount > topPage.LikesCount)
-                            {
-                                pageList.Add(topPage);
-                                pageList.Remove(topPage);
-                            }
-                        }
-                    }
-                }
+                Top5LikePages = new FeatureTop5LikePages(TheLoggedInUser);
 
-                foreach (Page topPage in pageList)
+                foreach (Page page in Top5LikePages.PageList)
                 {
-                    listBoxTop5Pages.Items.Add(topPage);
+                    listBoxTop5Pages.Items.Add(page);
                 }
 
             }
@@ -381,7 +352,7 @@ namespace BasicFacebookFeatures
         {
             listBoxEvents.Items.Clear();
             listBoxEvents.DisplayMember = "Name";
-            foreach (Event fbEvent in m_TheLoggedInUser.Events)
+            foreach (Event fbEvent in TheLoggedInUser.Events)
             {
                 listBoxEvents.Items.Add(fbEvent);
             }
@@ -413,5 +384,6 @@ namespace BasicFacebookFeatures
             fetchAlbums();
         }
 
+   
     }
 }
