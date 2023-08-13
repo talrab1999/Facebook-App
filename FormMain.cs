@@ -115,7 +115,11 @@ namespace BasicFacebookFeatures
             listBoxLikePages.Items.Clear();
             listBoxTop5Pages.Items.Clear();
 
-            if(checkBoxScheduledPost.Checked)
+            pictureBoxAlbum.ImageLocation = null;
+            pictureBoxFavoriteTeam.ImageLocation = null;
+            pictureBoxTop5Photos.ImageLocation = null;
+
+            if (checkBoxScheduledPost.Checked)
             {
                 checkBoxScheduledPost.Checked = !checkBoxScheduledPost.Checked;
             }
