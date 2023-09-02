@@ -16,10 +16,12 @@ namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
-        public FormMain()
+        private FacebookServiceSingleton facebookService;
+        public FormMain(FacebookServiceSingleton facebookService)
         {
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.facebookService = facebookService;
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
         }
 
@@ -41,8 +43,7 @@ namespace BasicFacebookFeatures
 
         private void login()
         {
-            /*
-              m_LoginResult = FacebookService.Login(
+            /*m_LoginResult = FacebookService.Login(
                   "610365831081527",
                   "email",
                   "public_profile",
@@ -60,13 +61,12 @@ namespace BasicFacebookFeatures
                   "user_videos",
                   "publish_to_groups",
                   "pages_read_engagement",
-                  "pages_manage_posts"
-                  );
-            */
+                  "pages_manage_posts");*/
+            
 
 
 
-            LoginResult = FacebookService.Connect("EAAIrH96LbjcBO0iwwqb8jHIEGPavdqE4HT69ed6IZCn2nZBWeOfNTDjDjk2FBpIpybdtXjZBHwObGlil2CKCdvaZAGf2hsrKQPSXGBPGb8xEG46Bvc4i8YbiP3y5TWAXoGtWQoZAxUa8TIOYuHXIlIPk6sHlW08tljqp8VtNhVvJbOo3KHzCWjxvZACiwe");
+            LoginResult = facebookService.Login("EAAIrH96LbjcBO0iwwqb8jHIEGPavdqE4HT69ed6IZCn2nZBWeOfNTDjDjk2FBpIpybdtXjZBHwObGlil2CKCdvaZAGf2hsrKQPSXGBPGb8xEG46Bvc4i8YbiP3y5TWAXoGtWQoZAxUa8TIOYuHXIlIPk6sHlW08tljqp8VtNhVvJbOo3KHzCWjxvZACiwe");
 
             if (string.IsNullOrEmpty(LoginResult.ErrorMessage))
             {
@@ -77,7 +77,8 @@ namespace BasicFacebookFeatures
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-            FacebookService.LogoutWithUI();
+            //FacebookService.LogoutWithUI();
+            facebookService.Logout();
             buttonLogin.Text = "Login";
             buttonLogin.BackColor = buttonLogout.BackColor;
             LoginResult = null;
