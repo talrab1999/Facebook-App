@@ -20,19 +20,12 @@ namespace BasicFacebookFeatures
         {
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.facebookService = facebookService;
-            FacebookWrapper.FacebookService.s_CollectionLimit = 25;
-            FeaturesFactory = new SpacielFeaturesFactory();
-        }
-        public FormMain()
-        {
-            InitializeComponent();
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            FacebookServiceSing = facebookService;
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
             FeaturesFactory = new SpacielFeaturesFactory();
         }
 
-        public FacebookServiceSingleton facebookService { get; set; }
+        public FacebookServiceSingleton FacebookServiceSing { get; set; }
         public LoginResult          LoginResult { get; set; }
         public User                 TheLoggedInUser { get; set; }
         public FeatureTop5LikePages Top5LikePages { get; set; }
@@ -52,7 +45,9 @@ namespace BasicFacebookFeatures
 
         private void login()
         {
-            /*m_LoginResult = FacebookService.Login(
+
+            /*
+            LoginResult = FacebookServiceSing.LoginWithAppIdAndPermissions(
                   "610365831081527",
                   "email",
                   "public_profile",
@@ -70,12 +65,13 @@ namespace BasicFacebookFeatures
                   "user_videos",
                   "publish_to_groups",
                   "pages_read_engagement",
-                  "pages_manage_posts");*/
+                  "pages_manage_posts");
+            */
 
 
 
-            LoginResult = FacebookService.Connect("EAAIrH96LbjcBO0iwwqb8jHIEGPavdqE4HT69ed6IZCn2nZBWeOfNTDjDjk2FBpIpybdtXjZBHwObGlil2CKCdvaZAGf2hsrKQPSXGBPGb8xEG46Bvc4i8YbiP3y5TWAXoGtWQoZAxUa8TIOYuHXIlIPk6sHlW08tljqp8VtNhVvJbOo3KHzCWjxvZACiwe");
-    //        LoginResult = facebookService.Login("EAAIrH96LbjcBO0iwwqb8jHIEGPavdqE4HT69ed6IZCn2nZBWeOfNTDjDjk2FBpIpybdtXjZBHwObGlil2CKCdvaZAGf2hsrKQPSXGBPGb8xEG46Bvc4i8YbiP3y5TWAXoGtWQoZAxUa8TIOYuHXIlIPk6sHlW08tljqp8VtNhVvJbOo3KHzCWjxvZACiwe");
+           
+            LoginResult = FacebookServiceSing.LoginWithAccessToken("EAAIrH96LbjcBO0iwwqb8jHIEGPavdqE4HT69ed6IZCn2nZBWeOfNTDjDjk2FBpIpybdtXjZBHwObGlil2CKCdvaZAGf2hsrKQPSXGBPGb8xEG46Bvc4i8YbiP3y5TWAXoGtWQoZAxUa8TIOYuHXIlIPk6sHlW08tljqp8VtNhVvJbOo3KHzCWjxvZACiwe");
 
             if (string.IsNullOrEmpty(LoginResult.ErrorMessage))
             {
@@ -86,8 +82,7 @@ namespace BasicFacebookFeatures
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-            FacebookService.LogoutWithUI();
-          //  facebookService.Logout();
+            FacebookServiceSing.Logout();
             buttonLogin.Text = "Login";
             buttonLogin.BackColor = buttonLogout.BackColor;
             LoginResult = null;
@@ -377,10 +372,5 @@ namespace BasicFacebookFeatures
         {
             new Thread(fetchAlbums).Start();
         }
-    }
-
-    public class FacebookServiceSingleton
-    {
-
     }
 }

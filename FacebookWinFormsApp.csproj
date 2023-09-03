@@ -89,6 +89,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FacebookServiceSingleton.cs" />
     <Compile Include="FeatureTop5LikePages.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>

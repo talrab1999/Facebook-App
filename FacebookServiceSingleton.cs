@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +13,7 @@ public class FacebookServiceSingleton
 
     private FacebookServiceSingleton()
     {
-        
+
         FacebookService.s_UseForamttedToStrings = true;
     }
 
@@ -35,10 +35,15 @@ public class FacebookServiceSingleton
         }
     }
 
-    public LoginResult Login(string accessToken)
+    public LoginResult LoginWithAppIdAndPermissions(string i_AppId, params string[] i_Permissions)
+    {
+        return FacebookService.Login(i_AppId, i_Permissions);
+    }
+
+    public LoginResult LoginWithAccessToken(string i_AccessToken)
     {
         // You can add more methods or properties related to FacebookService here.
-        return FacebookService.Connect(accessToken);
+        return FacebookService.Connect(i_AccessToken);
     }
 
     public void Logout()
