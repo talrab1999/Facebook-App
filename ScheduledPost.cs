@@ -10,7 +10,7 @@ namespace SpacielFeatures
 
         public DateTime ScheduledTime { get; set; }
 
-        public String PostContent { get; set; }
+        public string PostContent { get; set; }
 
         public ScheduledPost(User i_TheLoggedInUser, DateTime i_ScheduledTime, string i_PostContent)
         {

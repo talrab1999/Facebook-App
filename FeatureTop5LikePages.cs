@@ -14,12 +14,12 @@ namespace SpacielFeatures
             PageList = new List<Page>();
             TheLoggedInUser = i_TheLoggedInUser;
 
-            fetchTop5LikedPages(TheLoggedInUser);
+            fetchTop5LikedPages();
         }
 
-        private void fetchTop5LikedPages(User i_TheLoggedInUser)
+        private void fetchTop5LikedPages()
         {
-            foreach (Page page in i_TheLoggedInUser.LikedPages)
+            foreach (Page page in TheLoggedInUser.LikedPages)
             {
                 if (PageList.Count < 5)
                 {
