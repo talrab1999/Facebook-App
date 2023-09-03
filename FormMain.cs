@@ -16,19 +16,28 @@ namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
-        private FacebookServiceSingleton facebookService;
         public FormMain(FacebookServiceSingleton facebookService)
         {
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.facebookService = facebookService;
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
+            FeaturesFactory = new SpacielFeaturesFactory();
+        }
+        public FormMain()
+        {
+            InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            FacebookWrapper.FacebookService.s_CollectionLimit = 25;
+            FeaturesFactory = new SpacielFeaturesFactory();
         }
 
+        public FacebookServiceSingleton facebookService { get; set; }
         public LoginResult          LoginResult { get; set; }
         public User                 TheLoggedInUser { get; set; }
         public FeatureTop5LikePages Top5LikePages { get; set; }
         public ScheduledPost        ScheduledPostManger { get; set; }
+        public SpacielFeaturesFactory FeaturesFactory { get; set; }
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
@@ -62,11 +71,11 @@ namespace BasicFacebookFeatures
                   "publish_to_groups",
                   "pages_read_engagement",
                   "pages_manage_posts");*/
-            
 
 
 
-            LoginResult = facebookService.Login("EAAIrH96LbjcBO0iwwqb8jHIEGPavdqE4HT69ed6IZCn2nZBWeOfNTDjDjk2FBpIpybdtXjZBHwObGlil2CKCdvaZAGf2hsrKQPSXGBPGb8xEG46Bvc4i8YbiP3y5TWAXoGtWQoZAxUa8TIOYuHXIlIPk6sHlW08tljqp8VtNhVvJbOo3KHzCWjxvZACiwe");
+            LoginResult = FacebookService.Connect("EAAIrH96LbjcBO0iwwqb8jHIEGPavdqE4HT69ed6IZCn2nZBWeOfNTDjDjk2FBpIpybdtXjZBHwObGlil2CKCdvaZAGf2hsrKQPSXGBPGb8xEG46Bvc4i8YbiP3y5TWAXoGtWQoZAxUa8TIOYuHXIlIPk6sHlW08tljqp8VtNhVvJbOo3KHzCWjxvZACiwe");
+    //        LoginResult = facebookService.Login("EAAIrH96LbjcBO0iwwqb8jHIEGPavdqE4HT69ed6IZCn2nZBWeOfNTDjDjk2FBpIpybdtXjZBHwObGlil2CKCdvaZAGf2hsrKQPSXGBPGb8xEG46Bvc4i8YbiP3y5TWAXoGtWQoZAxUa8TIOYuHXIlIPk6sHlW08tljqp8VtNhVvJbOo3KHzCWjxvZACiwe");
 
             if (string.IsNullOrEmpty(LoginResult.ErrorMessage))
             {
@@ -77,8 +86,8 @@ namespace BasicFacebookFeatures
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-            //FacebookService.LogoutWithUI();
-            facebookService.Logout();
+            FacebookService.LogoutWithUI();
+          //  facebookService.Logout();
             buttonLogin.Text = "Login";
             buttonLogin.BackColor = buttonLogout.BackColor;
             LoginResult = null;
@@ -110,12 +119,13 @@ namespace BasicFacebookFeatures
             textBoxNewPost.Enabled = !textBoxNewPost.Enabled;
 
             textBoxNewPost.Clear();
-            listBoxPosts.Items.Clear();
-            listBoxAlbums.Items.Clear();
-            listBoxEvents.Items.Clear();
+            listBoxPosts.DataSource = null;
+            listBoxAlbums.DataSource = null;
+            listBoxEvents.DataSource = null;
+            listBoxLikePages.DataSource = null;
+
             listBoxFavoriteTeams.Items.Clear();
-            listBoxLikePages.Items.Clear();
-            listBoxTop5Pages.Items.Clear();
+            listBoxTop5Pages.Items.Clear(); 
 
             pictureBoxAlbum.ImageLocation = null;
             pictureBoxFavoriteTeam.ImageLocation = null;
@@ -160,7 +170,7 @@ namespace BasicFacebookFeatures
 
             DateTime scheduledTime = new DateTime(year, month, day, hour, minute, 0, DateTimeKind.Utc);
 
-            ScheduledPostManger = new ScheduledPost(TheLoggedInUser, scheduledTime, textBoxNewPost.Text);
+            ScheduledPostManger = FeaturesFactory.CreateScheduledPost(TheLoggedInUser, scheduledTime, textBoxNewPost.Text);
 
             ScheduledPostManger.PostScheduledPost();
 
@@ -219,28 +229,9 @@ namespace BasicFacebookFeatures
 
         private void fetchPosts()
         {
-            listBoxPosts.Invoke(new Action(() => listBoxPosts.Items.Clear()));
-            //listBoxPosts.Items.Clear();
             try
             {
-                foreach (Post post in TheLoggedInUser.Posts)
-                {
-                    if (post.Message != null)
-                    {
-                        listBoxPosts.Invoke(new Action(() => listBoxPosts.Items.Add(post.Message)));
-                        //listBoxPosts.Items.Add(post.Message);
-                    }
-                    else if (post.Caption != null)
-                    {
-                        listBoxPosts.Invoke(new Action(() => listBoxPosts.Items.Add(post.Caption)));
-                        //listBoxPosts.Items.Add(post.Caption);
-                    }
-                    else
-                    {
-                        listBoxPosts.Invoke(new Action(() => listBoxPosts.Items.Add(string.Format("[{0}]", post.Type))));
-                        //listBoxPosts.Items.Add(string.Format("[{0}]", post.Type));
-                    }
-                }
+                listBoxPosts.Invoke(new Action( () => listBoxPosts.DataSource = TheLoggedInUser.Posts));
             }
             catch (Exception ex)
             {
@@ -255,16 +246,10 @@ namespace BasicFacebookFeatures
 
         private void fetchAlbums()
         {
-            listBoxAlbums.Invoke(new Action(() => listBoxAlbums.Items.Clear()));
-            //listBoxAlbums.Items.Clear();
 
             try
             {
-                foreach (Album album in TheLoggedInUser.Albums)
-                {
-                    listBoxAlbums.Invoke(new Action(() => listBoxAlbums.Items.Add(album)));
-                    //listBoxAlbums.Items.Add(album);
-                }
+                listBoxAlbums.Invoke(new Action(() => listBoxAlbums.DataSource = TheLoggedInUser.Albums));
             }
             catch (Exception ex)
             {
@@ -274,7 +259,6 @@ namespace BasicFacebookFeatures
             if (listBoxAlbums.Items.Count == 0)
             {
                 listBoxAlbums.Invoke(new Action(() => listBoxAlbums.Items.Add("No Albums to retrieve")));
-                //listBoxAlbums.Items.Add("No Albums to retrieve");
             }
         }
 
@@ -282,15 +266,12 @@ namespace BasicFacebookFeatures
         {
             listBoxFavoriteTeams.Invoke(new Action(() => listBoxFavoriteTeams.Items.Clear()));
             listBoxFavoriteTeams.Invoke(new Action(() => listBoxFavoriteTeams.DisplayMember = "Name"));
-            //listBoxFavoriteTeams.Items.Clear();
-            //listBoxFavoriteTeams.DisplayMember = "Name";
 
             try
             {
                 foreach (Page team in TheLoggedInUser.FavofriteTeams)
                 {
                     listBoxFavoriteTeams.Invoke(new Action(() => listBoxFavoriteTeams.Items.Add(team)));
-                    //listBoxFavoriteTeams.Items.Add(team);
                 }
             }
             catch (Exception ex)
@@ -301,24 +282,15 @@ namespace BasicFacebookFeatures
             if (listBoxFavoriteTeams.Items.Count == 0)
             {
                 listBoxFavoriteTeams.Invoke(new Action(() => listBoxFavoriteTeams.Items.Add("No teams to retrieve :(")));
-                //listBoxFavoriteTeams.Items.Add("No teams to retrieve :(");
             }
         }
 
         private void fetchLikePages()
         {
-            listBoxLikePages.Invoke(new Action(() => listBoxLikePages.Items.Clear()));
-            listBoxLikePages.Invoke(new Action(() => listBoxLikePages.DisplayMember = "Name"));
-            //listBoxLikePages.Items.Clear();
-            //listBoxLikePages.DisplayMember = "Name";
-
             try
             {
-                foreach (Page page in TheLoggedInUser.LikedPages)
-                {
-                    listBoxLikePages.Invoke(new Action(() => listBoxLikePages.Items.Add(page)));
-                    //listBoxLikePages.Items.Add(page);
-                }
+                listBoxLikePages.Invoke(new Action(() => listBoxLikePages.DataSource = TheLoggedInUser.LikedPages));
+                listBoxLikePages.Invoke(new Action(() => listBoxLikePages.DisplayMember = "Name"));
             }
             catch (Exception ex)
             {
@@ -329,7 +301,6 @@ namespace BasicFacebookFeatures
             if (listBoxLikePages.Items.Count == 0)
             {
                 listBoxLikePages.Invoke(new Action(() => listBoxLikePages.Items.Add("No liked pages to retrieve")));
-                //listBoxLikePages.Items.Add("No liked pages to retrieve");
             }
         }
 
@@ -337,17 +308,14 @@ namespace BasicFacebookFeatures
         {
             listBoxTop5Pages.Invoke(new Action(() => listBoxTop5Pages.Items.Clear()));
             listBoxTop5Pages.Invoke(new Action(() => listBoxTop5Pages.DisplayMember = "Name"));
-            //listBoxTop5Pages.Items.Clear();
-            //listBoxTop5Pages.DisplayMember = "Name";
 
             try
             {
-                Top5LikePages = new FeatureTop5LikePages(TheLoggedInUser);
+                Top5LikePages = FeaturesFactory.CreateTop5LikePages(TheLoggedInUser);
 
                 foreach (Page page in Top5LikePages.PageList)
                 {
                     listBoxTop5Pages.Invoke(new Action(() => listBoxTop5Pages.Items.Add(page)));
-                    //listBoxTop5Pages.Items.Add(page);
                 }
 
             }
@@ -359,18 +327,18 @@ namespace BasicFacebookFeatures
             if (listBoxTop5Pages.Items.Count == 0)
             {
                 listBoxTop5Pages.Invoke(new Action(() => listBoxTop5Pages.Items.Add("No liked pages to retrieve")));
-                //listBoxTop5Pages.Items.Add("No liked pages to retrieve");
             }
         }
 
-        private void fetchMyEvents()
+        private void fetchEvents()
         {
-            listBoxEvents.Invoke(new Action(() => listBoxEvents.Items.Clear()));
-            listBoxEvents.Invoke(new Action(() => listBoxEvents.DisplayMember = "Name"));
-            foreach (Event fbEvent in TheLoggedInUser.Events)
+            try
             {
-                listBoxEvents.Invoke(new Action(() => listBoxEvents.Items.Add(fbEvent)));
-                //listBoxEvents.Items.Add(fbEvent);
+                listBoxEvents.Invoke(new Action(() => listBoxEvents.DataSource = TheLoggedInUser.Events));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred!\nError details:\n" + ex.ToString());
             }
 
             if (listBoxEvents.Items.Count == 0)
@@ -380,43 +348,39 @@ namespace BasicFacebookFeatures
 
         }
 
-
         private void buttonFetchTop5Pages_Click(object sender, EventArgs e)
         {
             new Thread(fetchTop5LikedPages).Start();
-            //fetchTop5LikedPages();
         }
 
         private void buttonFetchMyEvents_Click(object sender, EventArgs e)
         {
-            new Thread(fetchMyEvents).Start();
-            //fetchMyEvents();
+            new Thread(fetchEvents).Start();
         }
 
         private void buttonFetchFavoriteTeams_Click(object sender, EventArgs e)
         {
             new Thread(fetchFavoriteTeams).Start();
-            //fetchFavoriteTeams();
         }
 
         private void buttonFetchLikePages_Click(object sender, EventArgs e)
         {
             new Thread(fetchLikePages).Start();
-            //fetchLikePages();
         }
 
         private void buttonFetchPosts_Click(object sender, EventArgs e)
         {
             new Thread(fetchPosts).Start();
-            //fetchPosts();
         }
 
         private void buttonFetchAlbums_Click(object sender, EventArgs e)
         {
             new Thread(fetchAlbums).Start();
-            //fetchAlbums();
         }
+    }
 
-   
+    public class FacebookServiceSingleton
+    {
+
     }
 }
