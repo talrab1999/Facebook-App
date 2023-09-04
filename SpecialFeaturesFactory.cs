@@ -1,10 +1,10 @@
 ﻿using FacebookWrapper.ObjectModel;
-using SpacielFeatures;
+using SpecialFeatures;
 using System;
 
 namespace BasicFacebookFeatures
 {
-    public class SpacielFeaturesFactory : IFactory
+    public class SpecialFeaturesFactory : IFactory
     {
         public ScheduledPost CreateScheduledPost(User i_TheLoggedInUser, DateTime i_ScheduledTime, string i_PostContent)
         {
