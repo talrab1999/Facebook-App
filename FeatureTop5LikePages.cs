@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using FacebookWrapper.ObjectModel;
 
-namespace SpacielFeatures
+namespace SpecialFeatures
 {
     public class FeatureTop5LikePages
     {
