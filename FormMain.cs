@@ -10,7 +10,7 @@ using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Windows.Forms.VisualStyles;
 using System.Threading;
-using SpacielFeatures;
+using SpecialFeatures;
 
 namespace BasicFacebookFeatures
 {
@@ -22,7 +22,7 @@ namespace BasicFacebookFeatures
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             FacebookServiceSing = facebookService;
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
-            FeaturesFactory = new SpacielFeaturesFactory();
+            FeaturesFactory = new SpecialFeaturesFactory();
         }
 
         public FacebookServiceSingleton FacebookServiceSing { get; set; }
@@ -30,7 +30,7 @@ namespace BasicFacebookFeatures
         public User                 TheLoggedInUser { get; set; }
         public FeatureTop5LikePages Top5LikePages { get; set; }
         public ScheduledPost        ScheduledPostManger { get; set; }
-        public SpacielFeaturesFactory FeaturesFactory { get; set; }
+        public SpecialFeaturesFactory FeaturesFactory { get; set; }
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
