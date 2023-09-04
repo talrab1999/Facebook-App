@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 
-namespace SpacielFeatures
+namespace SpecialFeatures
 {
     public class ScheduledPost
     {
