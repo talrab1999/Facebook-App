@@ -42,13 +42,11 @@ public class FacebookServiceSingleton
 
     public LoginResult LoginWithAccessToken(string i_AccessToken)
     {
-        // You can add more methods or properties related to FacebookService here.
         return FacebookService.Connect(i_AccessToken);
     }
 
     public void Logout()
     {
-        // Use FacebookService to logout
         FacebookService.LogoutWithUI();
     }
 }
