@@ -37,6 +37,7 @@
             this.buttonFetchFavoriteTeams = new System.Windows.Forms.Button();
             this.buttonFetchMyEvents = new System.Windows.Forms.Button();
             this.listBoxEvents = new System.Windows.Forms.ListBox();
+            this.eventBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelMyEvents = new System.Windows.Forms.Label();
             this.buttonFetchTop5Pages = new System.Windows.Forms.Button();
             this.pictureBoxTop5Photos = new System.Windows.Forms.PictureBox();
@@ -57,23 +58,25 @@
             this.labelFavoriteTeams = new System.Windows.Forms.Label();
             this.labelLikePages = new System.Windows.Forms.Label();
             this.listBoxLikePages = new System.Windows.Forms.ListBox();
+            this.pageBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pictureBoxAlbum = new System.Windows.Forms.PictureBox();
             this.labelMyAlbums = new System.Windows.Forms.Label();
             this.listBoxAlbums = new System.Windows.Forms.ListBox();
+            this.albumBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.buttonPost = new System.Windows.Forms.Button();
             this.textBoxNewPost = new System.Windows.Forms.TextBox();
             this.labelPost = new System.Windows.Forms.Label();
             this.labelMyPosts = new System.Windows.Forms.Label();
             this.listBoxPosts = new System.Windows.Forms.ListBox();
+            this.postBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pictureBoxProfile = new System.Windows.Forms.PictureBox();
             this.buttonLogout = new System.Windows.Forms.Button();
             this.buttonLogin = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.postBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.albumBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.pageBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.eventBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pageBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.pageBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.eventBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTop5Photos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinute)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHour)).BeginInit();
@@ -81,13 +84,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMonth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFavoriteTeam)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pageBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlbum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.albumBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.postBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).BeginInit();
             this.tabControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.postBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.albumBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pageBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.eventBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pageBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pageBindingSource2)).BeginInit();
             this.SuspendLayout();
             // 
             // tabPage2
@@ -217,6 +221,10 @@
             this.listBoxEvents.Size = new System.Drawing.Size(207, 166);
             this.listBoxEvents.TabIndex = 29;
             // 
+            // eventBindingSource
+            // 
+            this.eventBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.Event);
+            // 
             // labelMyEvents
             // 
             this.labelMyEvents.AutoSize = true;
@@ -251,6 +259,8 @@
             // 
             this.listBoxTop5Pages.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxTop5Pages.DataSource = this.pageBindingSource2;
+            this.listBoxTop5Pages.DisplayMember = "Name";
             this.listBoxTop5Pages.FormattingEnabled = true;
             this.listBoxTop5Pages.ItemHeight = 18;
             this.listBoxTop5Pages.Location = new System.Drawing.Point(698, 66);
@@ -446,6 +456,8 @@
             this.listBoxFavoriteTeams.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxFavoriteTeams.DataSource = this.pageBindingSource1;
+            this.listBoxFavoriteTeams.DisplayMember = "Name";
             this.listBoxFavoriteTeams.FormattingEnabled = true;
             this.listBoxFavoriteTeams.ItemHeight = 18;
             this.listBoxFavoriteTeams.Location = new System.Drawing.Point(869, 230);
@@ -485,6 +497,10 @@
             this.listBoxLikePages.Size = new System.Drawing.Size(201, 382);
             this.listBoxLikePages.TabIndex = 23;
             // 
+            // pageBindingSource
+            // 
+            this.pageBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.Page);
+            // 
             // pictureBoxAlbum
             // 
             this.pictureBoxAlbum.Location = new System.Drawing.Point(440, 230);
@@ -515,6 +531,10 @@
             this.listBoxAlbums.Size = new System.Drawing.Size(219, 382);
             this.listBoxAlbums.TabIndex = 21;
             this.listBoxAlbums.SelectedIndexChanged += new System.EventHandler(this.listBoxAlbums_SelectedIndexChanged);
+            // 
+            // albumBindingSource
+            // 
+            this.albumBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.Album);
             // 
             // buttonPost
             // 
@@ -568,6 +588,10 @@
             this.listBoxPosts.Size = new System.Drawing.Size(234, 382);
             this.listBoxPosts.TabIndex = 19;
             // 
+            // postBindingSource
+            // 
+            this.postBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.Post);
+            // 
             // pictureBoxProfile
             // 
             this.pictureBoxProfile.BackColor = System.Drawing.Color.White;
@@ -612,21 +636,13 @@
             this.tabControl1.Size = new System.Drawing.Size(1155, 649);
             this.tabControl1.TabIndex = 54;
             // 
-            // postBindingSource
+            // pageBindingSource1
             // 
-            this.postBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.Post);
+            this.pageBindingSource1.DataSource = typeof(FacebookWrapper.ObjectModel.Page);
             // 
-            // albumBindingSource
+            // pageBindingSource2
             // 
-            this.albumBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.Album);
-            // 
-            // pageBindingSource
-            // 
-            this.pageBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.Page);
-            // 
-            // eventBindingSource
-            // 
-            this.eventBindingSource.DataSource = typeof(FacebookWrapper.ObjectModel.Event);
+            this.pageBindingSource2.DataSource = typeof(FacebookWrapper.ObjectModel.Page);
             // 
             // FormMain
             // 
@@ -643,6 +659,7 @@
             this.Text = "Facebook App";
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.eventBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTop5Photos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinute)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHour)).EndInit();
@@ -650,13 +667,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMonth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFavoriteTeam)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pageBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAlbum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.albumBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.postBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfile)).EndInit();
             this.tabControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.postBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.albumBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pageBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.eventBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pageBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pageBindingSource2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -707,6 +725,8 @@
         private System.Windows.Forms.BindingSource albumBindingSource;
         private System.Windows.Forms.BindingSource pageBindingSource;
         private System.Windows.Forms.BindingSource eventBindingSource;
+        private System.Windows.Forms.BindingSource pageBindingSource1;
+        private System.Windows.Forms.BindingSource pageBindingSource2;
     }
 }
 

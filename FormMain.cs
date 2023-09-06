@@ -1,16 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
-using System.Windows.Forms.VisualStyles;
 using System.Threading;
-using SpecialFeatures;
 
 namespace BasicFacebookFeatures
 {
@@ -22,15 +15,12 @@ namespace BasicFacebookFeatures
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             FacebookServiceSing = facebookService;
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
-            FeaturesFactory = new SpecialFeaturesFactory();
         }
 
         public FacebookServiceSingleton FacebookServiceSing { get; set; }
         public LoginResult          LoginResult { get; set; }
         public User                 TheLoggedInUser { get; set; }
-        public FeatureTop5LikePages Top5LikePages { get; set; }
-        public ScheduledPost        ScheduledPostManger { get; set; }
-        public SpecialFeaturesFactory FeaturesFactory { get; set; }
+        public FacebookFacade facebookFacade { get; set; }
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
@@ -45,7 +35,6 @@ namespace BasicFacebookFeatures
 
         private void login()
         {
-
             /*
             LoginResult = FacebookServiceSing.LoginWithAppIdAndPermissions(
                   "610365831081527",
@@ -67,9 +56,6 @@ namespace BasicFacebookFeatures
                   "pages_read_engagement",
                   "pages_manage_posts");
             */
-
-
-
            
             LoginResult = FacebookServiceSing.LoginWithAccessToken("EAAIrH96LbjcBO0iwwqb8jHIEGPavdqE4HT69ed6IZCn2nZBWeOfNTDjDjk2FBpIpybdtXjZBHwObGlil2CKCdvaZAGf2hsrKQPSXGBPGb8xEG46Bvc4i8YbiP3y5TWAXoGtWQoZAxUa8TIOYuHXIlIPk6sHlW08tljqp8VtNhVvJbOo3KHzCWjxvZACiwe");
 
@@ -77,6 +63,7 @@ namespace BasicFacebookFeatures
             {
                 TheLoggedInUser = LoginResult.LoggedInUser;
                 fetchUserInfo();
+                facebookFacade = new FacebookFacade(TheLoggedInUser);
             }
         }
 
@@ -118,9 +105,8 @@ namespace BasicFacebookFeatures
             listBoxAlbums.DataSource = null;
             listBoxEvents.DataSource = null;
             listBoxLikePages.DataSource = null;
-
-            listBoxFavoriteTeams.Items.Clear();
-            listBoxTop5Pages.Items.Clear(); 
+            listBoxFavoriteTeams.DataSource = null;
+            listBoxTop5Pages.DataSource = null;
 
             pictureBoxAlbum.ImageLocation = null;
             pictureBoxFavoriteTeam.ImageLocation = null;
@@ -135,27 +121,19 @@ namespace BasicFacebookFeatures
 
         private void buttonPost_Click(object sender, EventArgs e)
         {
+            string postContent = textBoxNewPost.Text;
 
             if (!checkBoxScheduledPost.Checked)
             {
-                try
-                {
-                    Status postedStatus = TheLoggedInUser.PostStatus(textBoxNewPost.Text);
-                    MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error occurred!\nError details:\n" + ex.ToString());
-                }
+                facebookFacade.PostStatus(postContent);
             }
             else
             {
-                new Thread(scheduledPost).Start();
-                //scheduledPost();
+                new Thread(() => scheduledPost(postContent)).Start();
             }
         }
 
-        private void scheduledPost()
+        private void scheduledPost(string i_PostContent)
         {
             int day = (int)numericUpDownDay.Value;
             int month = (int)numericUpDownMonth.Value;
@@ -163,12 +141,7 @@ namespace BasicFacebookFeatures
             int hour = (int)numericUpDownHour.Value;
             int minute = (int)numericUpDownMinute.Value;
 
-            DateTime scheduledTime = new DateTime(year, month, day, hour, minute, 0, DateTimeKind.Utc);
-
-            ScheduledPostManger = FeaturesFactory.CreateScheduledPost(TheLoggedInUser, scheduledTime, textBoxNewPost.Text);
-
-            ScheduledPostManger.PostScheduledPost();
-
+            facebookFacade.ScheduledPost(i_PostContent, day, month, year, hour, minute);
         }
 
         private void listBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
@@ -224,15 +197,8 @@ namespace BasicFacebookFeatures
 
         private void fetchPosts()
         {
-            try
-            {
-                listBoxPosts.Invoke(new Action( () => listBoxPosts.DataSource = TheLoggedInUser.Posts));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error occurred!\nError details:\n" + ex.ToString());
-            }
-
+            listBoxPosts.Invoke(new Action( () => listBoxPosts.DataSource = facebookFacade.GetPosts()));
+           
             if (listBoxPosts.Items.Count == 0)
             {
                 MessageBox.Show("No Posts to show");
@@ -241,106 +207,57 @@ namespace BasicFacebookFeatures
 
         private void fetchAlbums()
         {
-
-            try
-            {
-                listBoxAlbums.Invoke(new Action(() => listBoxAlbums.DataSource = TheLoggedInUser.Albums));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error occurred!\nError details:\n" + ex.ToString());
-            }
+            listBoxAlbums.Invoke(new Action(() => listBoxAlbums.DataSource = facebookFacade.GetAlbums()));
 
             if (listBoxAlbums.Items.Count == 0)
             {
-                listBoxAlbums.Invoke(new Action(() => listBoxAlbums.Items.Add("No Albums to retrieve")));
+                MessageBox.Show("No albums to retrieve :(");
             }
         }
 
         private void fetchFavoriteTeams()
         {
-            listBoxFavoriteTeams.Invoke(new Action(() => listBoxFavoriteTeams.Items.Clear()));
-            listBoxFavoriteTeams.Invoke(new Action(() => listBoxFavoriteTeams.DisplayMember = "Name"));
+            var favoriteTeams = facebookFacade.GetFavoriteTeams();
 
-            try
-            {
-                foreach (Page team in TheLoggedInUser.FavofriteTeams)
-                {
-                    listBoxFavoriteTeams.Invoke(new Action(() => listBoxFavoriteTeams.Items.Add(team)));
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error occurred!\nError details:\n" + ex.ToString());
-            }
+            listBoxFavoriteTeams.Invoke(new Action(() => listBoxFavoriteTeams.DataSource = favoriteTeams));
+            listBoxFavoriteTeams.Invoke(new Action(() => listBoxFavoriteTeams.DisplayMember = "Name"));
 
             if (listBoxFavoriteTeams.Items.Count == 0)
             {
-                listBoxFavoriteTeams.Invoke(new Action(() => listBoxFavoriteTeams.Items.Add("No teams to retrieve :(")));
+                MessageBox.Show("No teams to retrieve :(");
             }
         }
 
         private void fetchLikePages()
-        {
-            try
-            {
-                listBoxLikePages.Invoke(new Action(() => listBoxLikePages.DataSource = TheLoggedInUser.LikedPages));
-                listBoxLikePages.Invoke(new Action(() => listBoxLikePages.DisplayMember = "Name"));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error occurred!\nError details:\n" + ex.ToString());
-            }
-
+        {    
+            listBoxLikePages.Invoke(new Action(() => listBoxLikePages.DataSource = facebookFacade.GetLikedPages()));
+            listBoxLikePages.Invoke(new Action(() => listBoxLikePages.DisplayMember = "Name"));
 
             if (listBoxLikePages.Items.Count == 0)
             {
-                listBoxLikePages.Invoke(new Action(() => listBoxLikePages.Items.Add("No liked pages to retrieve")));
+                MessageBox.Show("No pages to retrieve :(");
             }
         }
 
         private void fetchTop5LikedPages()
         {
-            listBoxTop5Pages.Invoke(new Action(() => listBoxTop5Pages.Items.Clear()));
+            listBoxTop5Pages.Invoke(new Action(() => listBoxTop5Pages.DataSource = facebookFacade.GetTop5LikedPages()));
             listBoxTop5Pages.Invoke(new Action(() => listBoxTop5Pages.DisplayMember = "Name"));
-
-            try
-            {
-                Top5LikePages = FeaturesFactory.CreateTop5LikePages(TheLoggedInUser);
-
-                foreach (Page page in Top5LikePages.PageList)
-                {
-                    listBoxTop5Pages.Invoke(new Action(() => listBoxTop5Pages.Items.Add(page)));
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error occurred!\nError details:\n" + ex.ToString());
-            }
 
             if (listBoxTop5Pages.Items.Count == 0)
             {
-                listBoxTop5Pages.Invoke(new Action(() => listBoxTop5Pages.Items.Add("No liked pages to retrieve")));
+                MessageBox.Show("No pages to retrieve :(");
             }
         }
 
         private void fetchEvents()
         {
-            try
-            {
-                listBoxEvents.Invoke(new Action(() => listBoxEvents.DataSource = TheLoggedInUser.Events));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error occurred!\nError details:\n" + ex.ToString());
-            }
-
+            listBoxEvents.Invoke(new Action(() => listBoxEvents.DataSource = facebookFacade.GetEvents())); 
+    
             if (listBoxEvents.Items.Count == 0)
             {
                 MessageBox.Show("No Events to retrieve :(");
             }
-
         }
 
         private void buttonFetchTop5Pages_Click(object sender, EventArgs e)

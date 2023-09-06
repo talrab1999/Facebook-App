@@ -89,6 +89,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FacebookFacade.cs" />
     <Compile Include="FacebookServiceSingleton.cs" />
     <Compile Include="FeatureTop5LikePages.cs" />
     <Compile Include="FormMain.cs">
@@ -101,7 +102,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScheduledPost.cs" />
-    <Compile Include="SpacielFeaturesFactory.cs" />
+    <Compile Include="SpecialFeaturesFactory.cs" />
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
