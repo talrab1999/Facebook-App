@@ -15,8 +15,9 @@ namespace BasicFacebookFeatures
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             FacebookServiceSing = facebookService;
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
+            postStrategy = new NormalPostStrategy();
         }
-
+        private IPostStrategy postStrategy;
         public FacebookServiceSingleton FacebookServiceSing { get; set; }
         public LoginResult          LoginResult { get; set; }
         public User                 TheLoggedInUser { get; set; }
@@ -28,7 +29,6 @@ namespace BasicFacebookFeatures
 
             if (LoginResult == null)
             {
-                //new Thread(login).Start();
                 login();
             }
         }
@@ -118,31 +118,49 @@ namespace BasicFacebookFeatures
             }
 
         }
+        public void SetPostStrategy(IPostStrategy strategy)
+        {
+            postStrategy = strategy;
+        }
 
         private void buttonPost_Click(object sender, EventArgs e)
         {
             string postContent = textBoxNewPost.Text;
-
-            if (!checkBoxScheduledPost.Checked)
+            IPostStrategy strategy = new ScheduledPostStrategy(
+                (int)numericUpDownDay.Value,
+                (int)numericUpDownMonth.Value,
+                (int)numericUpDownYear.Value,
+                (int)numericUpDownHour.Value,
+                (int)numericUpDownMinute.Value);
+            if (checkBoxScheduledPost.Checked)
             {
-                facebookFacade.PostStatus(postContent);
+                SetPostStrategy(strategy);
             }
             else
             {
-                new Thread(() => scheduledPost(postContent)).Start();
+                SetPostStrategy(new NormalPostStrategy());
             }
+            postStrategy.Post(postContent, facebookFacade);
+            //if (!checkBoxScheduledPost.Checked)
+            //{
+            //    facebookFacade.PostStatus(postContent);
+            //}
+            //else
+            //{
+            //    new Thread(() => scheduledPost(postContent)).Start();
+            //}
         }
 
-        private void scheduledPost(string i_PostContent)
-        {
-            int day = (int)numericUpDownDay.Value;
-            int month = (int)numericUpDownMonth.Value;
-            int year = (int)numericUpDownYear.Value;
-            int hour = (int)numericUpDownHour.Value;
-            int minute = (int)numericUpDownMinute.Value;
+        //private void scheduledPost(string i_PostContent)
+        //{
+        //    int day = (int)numericUpDownDay.Value;
+        //    int month = (int)numericUpDownMonth.Value;
+        //    int year = (int)numericUpDownYear.Value;
+        //    int hour = (int)numericUpDownHour.Value;
+        //    int minute = (int)numericUpDownMinute.Value;
 
-            facebookFacade.ScheduledPost(i_PostContent, day, month, year, hour, minute);
-        }
+        //    facebookFacade.ScheduledPost(i_PostContent, day, month, year, hour, minute);
+        //}
 
         private void listBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
         {
