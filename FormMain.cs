@@ -118,9 +118,9 @@ namespace BasicFacebookFeatures
             }
 
         }
-        public void SetPostStrategy(IPostStrategy strategy)
+        public void SetPostStrategy(IPostStrategy i_Strategy)
         {
-            postStrategy = strategy;
+            postStrategy = i_Strategy;
         }
 
         private void buttonPost_Click(object sender, EventArgs e)

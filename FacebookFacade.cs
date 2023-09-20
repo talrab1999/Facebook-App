@@ -41,7 +41,7 @@ namespace BasicFacebookFeatures
             ScheduledPostManger.PostScheduledPost();
         }
 
-        public FacebookObjectCollection<Album> GetAlbums()
+        public IEnumerable<Album> GetAlbums()
         {
             FacebookObjectCollection<Album> albumList = new FacebookObjectCollection<Album>();
 
@@ -57,7 +57,7 @@ namespace BasicFacebookFeatures
             return albumList;
         }
 
-        public FacebookObjectCollection<Event> GetEvents()
+        public IEnumerable<Event> GetEvents()
         {
             FacebookObjectCollection<Event> eventsList = new FacebookObjectCollection<Event>();
 
@@ -73,7 +73,7 @@ namespace BasicFacebookFeatures
             return eventsList;
         }
 
-        public FacebookObjectCollection<Page> GetLikedPages()
+        public IEnumerable<Page> GetLikedPages()
         {
             FacebookObjectCollection<Page> PagesList = new FacebookObjectCollection<Page>();
 
@@ -89,7 +89,7 @@ namespace BasicFacebookFeatures
             return PagesList;
         }
 
-        public FacebookObjectCollection<Post> GetPosts()
+        public IEnumerable<Post> GetPosts()
         {
             FacebookObjectCollection<Post> postsList = new FacebookObjectCollection<Post>();
 
@@ -105,7 +105,7 @@ namespace BasicFacebookFeatures
             return postsList;
         }
 
-        public FacebookObjectCollection<Page> GetFavoriteTeams()
+        public IEnumerable<Page> GetFavoriteTeams()
         {
             FacebookObjectCollection<Page> favoriteTeamsList = new FacebookObjectCollection<Page>();
 
@@ -124,7 +124,7 @@ namespace BasicFacebookFeatures
             return favoriteTeamsList;
         }
 
-        public List<Page> GetTop5LikedPages()
+        public IEnumerable<Page> GetTop5LikedPages()
         {
             List<Page> top5LikedPagesList = new List<Page>();
 
