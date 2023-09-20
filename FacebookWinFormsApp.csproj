@@ -99,9 +99,12 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="IFactory.cs" />
+    <Compile Include="IPostStrategy.cs" />
+    <Compile Include="NormalPostStrategy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScheduledPost.cs" />
+    <Compile Include="ScheduledPostStrategy.cs" />
     <Compile Include="SpecialFeaturesFactory.cs" />
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>

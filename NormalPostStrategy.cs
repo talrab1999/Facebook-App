@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,10 +9,10 @@ namespace BasicFacebookFeatures
     public class NormalPostStrategy : IPostStrategy
     {
 
-        public void Post(string postContent, FacebookFacade facebookFacade)
+        public void Post(string i_PostContent, FacebookFacade i_FacebookFacade)
         {
 
-            facebookFacade.PostStatus(postContent);
+            i_FacebookFacade.PostStatus(i_PostContent);
         }
 
     }

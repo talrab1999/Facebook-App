@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +8,6 @@ namespace BasicFacebookFeatures
 {
     public interface IPostStrategy
     {
-        void Post(string postContent, FacebookFacade facebookFacade);
+        void Post(string i_PostContent, FacebookFacade i_FacebookFacade);
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Linq;
@@ -9,24 +9,25 @@ namespace BasicFacebookFeatures
 {
     public class ScheduledPostStrategy : IPostStrategy
     {
-        private int day;
-        private int month;
-        private int year;
-        private int hour;
-        private int minute;
+        private int m_Day;
+        private int m_Month;
+        private int m_Year;
+        private int m_Hour;
+        private int m_Minute;
 
 
-        public ScheduledPostStrategy(int day, int month, int year, int hour, int minute)
+        public ScheduledPostStrategy(int i_Day, int i_Month, int i_Year, int i_Hour, int i_Minute)
         {
-            this.day = day;
-            this.month = month;
-            this.year = year;
-            this.hour = hour;
-            this.minute = minute;
+            m_Day = i_Day;
+            m_Month = i_Month;
+            m_Year = i_Year;
+            m_Hour = i_Hour;
+            m_Minute = i_Minute;
         }
-        public void Post(string postContent, FacebookFacade facebookFacade)
+        public void Post(string i_PostContent, FacebookFacade i_FacebookFacade)
         {
-            facebookFacade.ScheduledPost(postContent, day, month, year, hour, minute);
+            i_FacebookFacade.ScheduledPost(i_PostContent, m_Day, m_Month, m_Year, m_Hour, m_Minute);
         }
     }
 }
+
