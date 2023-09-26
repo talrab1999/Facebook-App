@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -18,7 +18,10 @@ namespace BasicFacebookFeatures
             FacebookService.s_UseForamttedToStrings = true;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMain(FacebookServiceSingleton.Instance));
+            FacebookServiceSingleton facebookServiceSingleton = FacebookServiceSingleton.Instance;
+            FormMain formMain = new FormMain(facebookServiceSingleton);
+            formMain.Subscribe(formMain);
+            Application.Run(formMain);
         }
     }
 }
