@@ -4,10 +4,11 @@ using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace BasicFacebookFeatures
 {
-    public partial class FormMain : Form
+    public partial class FormMain : Form, ILoginObserver
     {
         public FormMain(FacebookServiceSingleton facebookService)
         {
@@ -18,10 +19,38 @@ namespace BasicFacebookFeatures
             postStrategy = new NormalPostStrategy();
         }
         private IPostStrategy postStrategy;
+        private List<ILoginObserver> loginObservers = new List<ILoginObserver>();
+
         public FacebookServiceSingleton FacebookServiceSing { get; set; }
-        public LoginResult          LoginResult { get; set; }
-        public User                 TheLoggedInUser { get; set; }
+        public LoginResult LoginResult { get; set; }
+        public User TheLoggedInUser { get; set; }
         public FacebookFacade facebookFacade { get; set; }
+
+        public void Subscribe(ILoginObserver observer)
+        {
+            loginObservers.Add(observer);
+        }
+
+        public void Unsubscribe(ILoginObserver observer)
+        {
+            loginObservers.Remove(observer);
+        }
+
+        private void NotifyLoginObservers(LoginResult loginResult)
+        {
+            foreach (ILoginObserver observer in loginObservers)
+            {
+                observer.OnLogin(loginResult);
+            }
+        }
+
+        public void OnLogin(LoginResult loginResult)
+        {
+            
+            TheLoggedInUser = loginResult.LoggedInUser;
+            fetchUserInfo();
+            facebookFacade = new FacebookFacade(TheLoggedInUser);
+        }
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
@@ -56,14 +85,11 @@ namespace BasicFacebookFeatures
                   "pages_read_engagement",
                   "pages_manage_posts");
             */
-           
             LoginResult = FacebookServiceSing.LoginWithAccessToken("EAAIrH96LbjcBO0iwwqb8jHIEGPavdqE4HT69ed6IZCn2nZBWeOfNTDjDjk2FBpIpybdtXjZBHwObGlil2CKCdvaZAGf2hsrKQPSXGBPGb8xEG46Bvc4i8YbiP3y5TWAXoGtWQoZAxUa8TIOYuHXIlIPk6sHlW08tljqp8VtNhVvJbOo3KHzCWjxvZACiwe");
 
             if (string.IsNullOrEmpty(LoginResult.ErrorMessage))
             {
-                TheLoggedInUser = LoginResult.LoggedInUser;
-                fetchUserInfo();
-                facebookFacade = new FacebookFacade(TheLoggedInUser);
+                NotifyLoginObservers(LoginResult);
             }
         }
 
@@ -215,8 +241,8 @@ namespace BasicFacebookFeatures
 
         private void fetchPosts()
         {
-            listBoxPosts.Invoke(new Action( () => listBoxPosts.DataSource = facebookFacade.GetPosts()));
-           
+            listBoxPosts.Invoke(new Action(() => listBoxPosts.DataSource = facebookFacade.GetPosts()));
+
             if (listBoxPosts.Items.Count == 0)
             {
                 MessageBox.Show("No Posts to show");
@@ -247,7 +273,7 @@ namespace BasicFacebookFeatures
         }
 
         private void fetchLikePages()
-        {    
+        {
             listBoxLikePages.Invoke(new Action(() => listBoxLikePages.DataSource = facebookFacade.GetLikedPages()));
             listBoxLikePages.Invoke(new Action(() => listBoxLikePages.DisplayMember = "Name"));
 
@@ -270,8 +296,8 @@ namespace BasicFacebookFeatures
 
         private void fetchEvents()
         {
-            listBoxEvents.Invoke(new Action(() => listBoxEvents.DataSource = facebookFacade.GetEvents())); 
-    
+            listBoxEvents.Invoke(new Action(() => listBoxEvents.DataSource = facebookFacade.GetEvents()));
+
             if (listBoxEvents.Items.Count == 0)
             {
                 MessageBox.Show("No Events to retrieve :(");
