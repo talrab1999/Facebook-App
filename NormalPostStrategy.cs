@@ -1,18 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using FacebookWrapper.ObjectModel;
+using System;
+using System.Windows.Forms;
 
 namespace BasicFacebookFeatures
 {
     public class NormalPostStrategy : IPostStrategy
     {
-
-        public void Post(string i_PostContent, FacebookFacade i_FacebookFacade)
+        public User TheLoggedInUser { get; set; }
+        public void Post(string i_PostContent, User i_TheLoggedInUser)
         {
 
-            i_FacebookFacade.PostStatus(i_PostContent);
+            try
+            {
+                Status postedStatus = i_TheLoggedInUser.PostStatus(i_PostContent);
+                MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error occurred!\nError details:\n" + ex.ToString());
+            }
         }
 
     }
