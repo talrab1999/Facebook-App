@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using FacebookWrapper;
 
@@ -20,7 +18,6 @@ namespace BasicFacebookFeatures
             Application.SetCompatibleTextRenderingDefault(false);
             FacebookServiceSingleton facebookServiceSingleton = FacebookServiceSingleton.Instance;
             FormMain formMain = new FormMain(facebookServiceSingleton);
-            formMain.Subscribe(formMain);
             Application.Run(formMain);
         }
     }
