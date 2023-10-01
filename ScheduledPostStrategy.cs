@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
+using SpecialFeatures;
+using FacebookWrapper.ObjectModel;
+
 
 namespace BasicFacebookFeatures
 {
@@ -14,8 +12,9 @@ namespace BasicFacebookFeatures
         private int m_Year;
         private int m_Hour;
         private int m_Minute;
-
-
+        public User TheLoggedInUser { get; set; }
+        public ScheduledPost ScheduledPostManger { get; set; }
+        public SpecialFeaturesFactory FeaturesFactory { get; set; }
         public ScheduledPostStrategy(int i_Day, int i_Month, int i_Year, int i_Hour, int i_Minute)
         {
             m_Day = i_Day;
@@ -23,11 +22,15 @@ namespace BasicFacebookFeatures
             m_Year = i_Year;
             m_Hour = i_Hour;
             m_Minute = i_Minute;
+            FeaturesFactory = new SpecialFeaturesFactory();
         }
-        public void Post(string i_PostContent, FacebookFacade i_FacebookFacade)
+        public void Post(string i_PostContent, User i_TheLoggedInUser)
         {
-            i_FacebookFacade.ScheduledPost(i_PostContent, m_Day, m_Month, m_Year, m_Hour, m_Minute);
+            DateTime scheduledTime = new DateTime(m_Year, m_Month, m_Day, m_Hour, m_Minute, 0, DateTimeKind.Utc);
+
+            ScheduledPostManger = FeaturesFactory.CreateScheduledPost(i_TheLoggedInUser, scheduledTime, i_PostContent);
+
+            ScheduledPostManger.PostScheduledPost();
         }
     }
 }
-
