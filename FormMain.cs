@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
 using FacebookWrapper;
 using System.Threading;
-using System.Collections.Generic;
+
 
 namespace BasicFacebookFeatures
 {
@@ -13,36 +13,18 @@ namespace BasicFacebookFeatures
         public FormMain(FacebookServiceSingleton facebookService)
         {
             InitializeComponent();
+            loginSubject.Subscribe(this);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             FacebookServiceSing = facebookService;
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
             postStrategy = new NormalPostStrategy();
         }
         private IPostStrategy postStrategy;
-        private List<ILoginObserver> loginObservers = new List<ILoginObserver>();
-
+        private LoginSubject loginSubject = new LoginSubject();
         public FacebookServiceSingleton FacebookServiceSing { get; set; }
         public LoginResult LoginResult { get; set; }
         public User TheLoggedInUser { get; set; }
         public FacebookFacade facebookFacade { get; set; }
-
-        public void Subscribe(ILoginObserver observer)
-        {
-            loginObservers.Add(observer);
-        }
-
-        public void Unsubscribe(ILoginObserver observer)
-        {
-            loginObservers.Remove(observer);
-        }
-
-        private void NotifyLoginObservers(LoginResult loginResult)
-        {
-            foreach (ILoginObserver observer in loginObservers)
-            {
-                observer.OnLogin(loginResult);
-            }
-        }
 
         public void OnLogin(LoginResult loginResult)
         {
@@ -89,7 +71,7 @@ namespace BasicFacebookFeatures
 
             if (string.IsNullOrEmpty(LoginResult.ErrorMessage))
             {
-                NotifyLoginObservers(LoginResult);
+                loginSubject.NotifyLoginObservers(LoginResult);
             }
         }
 
