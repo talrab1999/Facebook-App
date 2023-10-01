@@ -1,4 +1,4 @@
-﻿using FacebookWrapper.ObjectModel;
+using FacebookWrapper.ObjectModel;
 using SpecialFeatures;
 using System;
 using System.Collections.Generic;
@@ -13,32 +13,10 @@ namespace BasicFacebookFeatures
         public FeatureTop5LikePages Top5LikePages { get; set; }
         public ScheduledPost ScheduledPostManger { get; set; }
 
-        public FacebookFacade(User i_TheLoggedInUser) 
+        public FacebookFacade(User i_TheLoggedInUser)
         {
             TheLoggedInUser = i_TheLoggedInUser;
             FeaturesFactory = new SpecialFeaturesFactory();
-        }
-
-        public void PostStatus(string i_PostContent)
-        {
-            try
-            {
-                Status postedStatus = TheLoggedInUser.PostStatus(i_PostContent);
-                MessageBox.Show("Status Posted! ID: " + postedStatus.Id);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error occurred!\nError details:\n" + ex.ToString());
-            }
-        }
-
-        public void ScheduledPost(string i_PostContent, int i_Day, int i_Month, int i_Year, int i_Hour, int i_Minute)
-        {
-            DateTime scheduledTime = new DateTime(i_Year, i_Month, i_Day, i_Hour, i_Minute, 0, DateTimeKind.Utc);
-
-            ScheduledPostManger = FeaturesFactory.CreateScheduledPost(TheLoggedInUser, scheduledTime, i_PostContent);
-
-            ScheduledPostManger.PostScheduledPost();
         }
 
         public IEnumerable<Album> GetAlbums()
