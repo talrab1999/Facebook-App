@@ -166,27 +166,9 @@ namespace BasicFacebookFeatures
             {
                 SetPostStrategy(new NormalPostStrategy());
             }
-            postStrategy.Post(postContent, facebookFacade);
-            //if (!checkBoxScheduledPost.Checked)
-            //{
-            //    facebookFacade.PostStatus(postContent);
-            //}
-            //else
-            //{
-            //    new Thread(() => scheduledPost(postContent)).Start();
-            //}
+            postStrategy.Post(postContent, TheLoggedInUser);
+           
         }
-
-        //private void scheduledPost(string i_PostContent)
-        //{
-        //    int day = (int)numericUpDownDay.Value;
-        //    int month = (int)numericUpDownMonth.Value;
-        //    int year = (int)numericUpDownYear.Value;
-        //    int hour = (int)numericUpDownHour.Value;
-        //    int minute = (int)numericUpDownMinute.Value;
-
-        //    facebookFacade.ScheduledPost(i_PostContent, day, month, year, hour, minute);
-        //}
 
         private void listBoxAlbums_SelectedIndexChanged(object sender, EventArgs e)
         {
