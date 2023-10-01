@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using FacebookWrapper.ObjectModel;
 
 namespace BasicFacebookFeatures
 {
+    
     public interface IPostStrategy
     {
-        void Post(string i_PostContent, FacebookFacade i_FacebookFacade);
+        User TheLoggedInUser { get; set; }
+        void Post(string i_PostContent, User TheLoggedInUser);
     }
 }
