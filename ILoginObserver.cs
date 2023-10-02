@@ -1,9 +1,9 @@
-using FacebookWrapper;
+﻿using FacebookWrapper;
 
 namespace BasicFacebookFeatures
 {
     public interface ILoginObserver
     {
-        void OnLogin(LoginResult loginResult);
+        void OnLogin(LoginResult i_LoginResult);
     }
 }

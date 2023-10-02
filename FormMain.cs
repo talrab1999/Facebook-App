@@ -13,23 +13,24 @@ namespace BasicFacebookFeatures
         public FormMain(FacebookServiceSingleton facebookService)
         {
             InitializeComponent();
-            loginSubject.Subscribe(this);
+            m_LoginSubject.Subscribe(this);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             FacebookServiceSing = facebookService;
             FacebookWrapper.FacebookService.s_CollectionLimit = 25;
-            postStrategy = new NormalPostStrategy();
+            m_PostStrategy = new NormalPostStrategy();
         }
-        private IPostStrategy postStrategy;
-        private LoginSubject loginSubject = new LoginSubject();
+
+        private IPostStrategy m_PostStrategy;
+
+        private LoginSubject m_LoginSubject = new LoginSubject();
         public FacebookServiceSingleton FacebookServiceSing { get; set; }
         public LoginResult LoginResult { get; set; }
         public User TheLoggedInUser { get; set; }
         public FacebookFacade facebookFacade { get; set; }
 
-        public void OnLogin(LoginResult loginResult)
-        {
-            
-            TheLoggedInUser = loginResult.LoggedInUser;
+        public void OnLogin(LoginResult i_LoginResult)
+        { 
+            TheLoggedInUser = i_LoginResult.LoggedInUser;
             fetchUserInfo();
             facebookFacade = new FacebookFacade(TheLoggedInUser);
         }
@@ -71,7 +72,7 @@ namespace BasicFacebookFeatures
 
             if (string.IsNullOrEmpty(LoginResult.ErrorMessage))
             {
-                loginSubject.NotifyLoginObservers(LoginResult);
+                m_LoginSubject.NotifyLoginObservers(LoginResult);
             }
         }
 
@@ -126,9 +127,10 @@ namespace BasicFacebookFeatures
             }
 
         }
+
         public void SetPostStrategy(IPostStrategy i_Strategy)
         {
-            postStrategy = i_Strategy;
+            m_PostStrategy = i_Strategy;
         }
 
         private void buttonPost_Click(object sender, EventArgs e)
@@ -148,7 +150,7 @@ namespace BasicFacebookFeatures
             {
                 SetPostStrategy(new NormalPostStrategy());
             }
-            postStrategy.Post(postContent, TheLoggedInUser);
+            m_PostStrategy.Post(postContent, TheLoggedInUser);
            
         }
 

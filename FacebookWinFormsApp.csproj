@@ -99,7 +99,9 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="IFactory.cs" />
+    <Compile Include="ILoginObserver.cs" />
     <Compile Include="IPostStrategy.cs" />
+    <Compile Include="LoginSubject.cs" />
     <Compile Include="NormalPostStrategy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
